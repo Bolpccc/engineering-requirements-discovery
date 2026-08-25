@@ -14,6 +14,7 @@ Extract what is already present before asking anything:
 - constraints and exclusions;
 - claimed success conditions;
 - current implementation and prior attempts;
+- relevant internal documents and prior investigations;
 - assumptions, contradictions, and unknowns;
 - any named workspace for persistent documents.
 
@@ -28,12 +29,24 @@ When the work concerns an existing system, inspect only the relevant context:
 - configuration and operational constraints;
 - nearby tests, logs, experiment results, and known failures;
 - historical decisions that still constrain the next iteration.
+- relevant internal Wiki pages, design notes, incidents, and evidence indexes within the authorized scope.
 
 Prefer primary engineering evidence over summaries. Keep inspection read-only. Do not start a build, test run, prototype, remote action, or hardware operation merely to answer the interview.
 
 Do not ask the user for a discoverable repository fact. State what was found and distinguish current evidence from stale documentation or inference.
 
-## 3. Maintain the Working Model
+## 3. Research Before Asking When It Helps
+
+Some unknowns are better answered by public evidence than by user memory. Read [research-for-decisions.md](research-for-decisions.md) when the uncertainty concerns:
+
+- current behavior or limitations of a framework, library, algorithm, protocol, or tool;
+- similar failures reported by other engineering teams;
+- alternative architectures or mitigation strategies;
+- standards, research, benchmarks, or operational lessons that could change the next iteration.
+
+Research the precise decision question, not the whole topic. Bring back mechanisms, field experience, counterexamples, and applicability limits. If the public evidence is weak or environments differ materially, preserve the result as qualified evidence rather than fact.
+
+## 4. Maintain the Working Model
 
 Classify important statements internally:
 
@@ -42,11 +55,11 @@ Classify important statements internally:
 | Fact | Directly observed or supported by current evidence | Use as the basis for requirements and planning; cite its source when useful. |
 | Assumption | Believed for now but not verified | Carry visibly and identify what evidence would confirm or overturn it. |
 | Preference | A chosen tradeoff or desired direction | Preserve it unless it conflicts with a harder constraint. |
-| Unknown | Missing information that can change a decision | Explore, ask, or record it as an open question. |
+| Unknown | Missing information that can change a decision | Inspect, research, ask, or record it as an open question. |
 
 Reclassify statements when evidence changes. Do not promote a preference, old plan, or document assertion to fact.
 
-## 4. Check Readiness
+## 5. Check Readiness
 
 Track five dimensions without turning them into ceremony or a user-facing scorecard:
 
@@ -58,7 +71,7 @@ Track five dimensions without turning them into ceremony or a user-facing scorec
 
 These dimensions need only be sufficiently clear for the next useful engineering iteration. Do not wait for the final system architecture or every future phase to be known.
 
-## 5. Select the Next Question
+## 6. Select the Next Question
 
 Choose the unresolved uncertainty with the greatest ability to change the next iteration. By default, ask one focused question and wait for its answer.
 
@@ -72,12 +85,13 @@ Do not ask:
 
 - questions already answered in the input;
 - questions that read-only inspection can settle;
+- questions that a bounded public research pass can settle more reliably;
 - distant design questions that do not affect the next iteration;
 - large questionnaires or generic discovery checklists.
 
 Challenge vague language with an observable distinction. Surface contradictions directly. If two or three attempts fail because the user cannot articulate the answer, offer a small concrete strawman for correction rather than repeating the same abstract question.
 
-## 6. Handle Knowledge Gaps
+## 7. Handle Knowledge Gaps
 
 When a missing answer materially affects the direction, record:
 
@@ -89,7 +103,7 @@ When a missing answer materially affects the direction, record:
 
 Do not perform the closing work under this skill alone. A prototype or experiment is a proposed next iteration or a separate handoff, not part of the interview.
 
-## 7. Pause, Resume, and Re-enter
+## 8. Pause, Resume, and Re-enter
 
 Pause when:
 

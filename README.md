@@ -19,9 +19,11 @@ The skill:
 - reads the existing engineering context before asking discoverable questions;
 - extracts answers from brain dumps instead of restarting with a questionnaire;
 - separates facts, assumptions, preferences, and unknowns;
+- researches official mechanisms, similar incidents, alternatives, and counterexamples when they can change the decision;
 - advances one high-impact uncertainty at a time;
 - defines the smallest safe next engineering iteration;
-- maintains the semantic equivalents of Requirements, Engineering Plan, and Engineering Notes;
+- maintains Requirements, Engineering Plan, and Engineering Notes as semantic lanes that may span a navigable page set;
+- audits architecture, flow, state, roadmap, risk, and evidence relationships for focused diagrams;
 - revises the current model directly when new evidence changes the plan.
 
 It does not implement code, run experiments, operate hardware, manage project trackers, or synchronize GitHub, Gitee, Feishu, Notion, or other storage systems.
@@ -60,9 +62,19 @@ SKILL.md
 agents/openai.yaml
 references/requirements-interview.md
 references/document-model.md
+references/research-for-decisions.md
+references/feishu-workspace.md
 ```
 
 The skill is self-contained. If a compatible interview or ideation skill is already installed, it may provide the conversational interview, but no upstream skill is required.
+
+## Feishu/Lark-native output
+
+When Feishu is the designated workspace, the skill can use a hub-and-child-page structure, consistent role-first naming, native callouts/grids/tables/document cites, and focused Mermaid or whiteboard diagrams. Complex content is split by semantic responsibility and update cadence instead of being forced into one long page. Feishu remains an optional presentation adapter; the core engineering model stays portable.
+
+## Decision-driven research
+
+For an open question that can change the next iteration, the skill searches along several angles: authoritative behavior, real-world failure reports, alternatives, counterexamples, and environment fit. It records what each source actually supports and keeps community experience separate from verified current-system facts.
 
 ## Acknowledgements
 
@@ -98,9 +110,11 @@ MIT License. See [LICENSE](LICENSE).
 - 先理解已有代码、架构、约束和证据，再询问无法从环境获得的信息；
 - 从长段想法中提取已经回答的内容，不重新发一份需求问卷；
 - 区分事实、假设、偏好和未知；
+- 针对真正影响决策的缺口，主动搜索官方机制、类似故障、社区实践、替代方案和反例；
 - 默认每轮只推进一个最关键的不确定性；
 - 以“下一轮工程验证是否已经足够清晰”为完成条件；
-- 维护 Requirements、Engineering Plan、Engineering Notes 三种稳定语义；
+- 将 Requirements、Engineering Plan、Engineering Notes 作为三条稳定语义车道，根据复杂度展开成可导航的页面体系；
+- 审查架构、流程、状态、路线、风险和证据关系，为重要内容配置聚焦图表；
 - 新证据推翻旧判断时，直接修改当前需求和计划。
 
 它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间，也不把 GitHub、Gitee、飞书、Notion 或本地 Markdown 固定为核心存储。
@@ -121,6 +135,16 @@ MIT License. See [LICENSE](LICENSE).
 
 ## 设计边界
 
-三类文档的语义稳定，但文件名、存储介质和颗粒度由项目决定。近期阶段写具体，远期阶段保持粗略；需求和计划表达当前最佳认知，而不是不可修改的合同。
+三条语义车道稳定，但文件名、存储介质和颗粒度由项目决定。近期阶段写具体，远期阶段保持粗略；需求和计划表达当前最佳认知，而不是不可修改的合同。
+
+## 飞书原生输出
+
+指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面，再决定保留单页还是采用“发现总览 + 需求基线 + 系统现状 + 演进路线 + 技术研判 + 证据索引”的子页面结构。标题采用统一的 `NN｜语义角色：具体范围` 语法，并使用 Callout、分栏、表格、文档引用、子页面列表和 Mermaid/画板提升阅读与迭代体验。
+
+重要关系不会只留在段落里：系统依赖、运行时序、状态转换、阶段路线、方案比较、风险链路和证据来源会分别选择合适的图表。多个聚焦图优先于一张塞满所有信息的大图。
+
+## 多角度研究
+
+对影响下一阶段的开放问题，Skill 会同时寻找权威资料、源码与 Issue、工程实践帖子、替代方案和失败反例，并记录版本、环境相似度、可信度和对当前决策的影响。网上帖子用于拓宽视角，不会被直接当成当前系统事实。
 
 本项目采用 MIT License。
