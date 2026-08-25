@@ -1,0 +1,4 @@
+interface:
+  display_name: "Engineering Requirements Discovery"
+  short_description: "Turn evolving engineering goals into staged requirements"
+  default_prompt: "Use $engineering-requirements-discovery to clarify this engineering goal and define the next evidence-driven iteration."
