@@ -22,8 +22,11 @@ The skill:
 - researches official mechanisms, similar incidents, alternatives, and counterexamples when they can change the decision;
 - advances one high-impact uncertainty at a time;
 - defines the smallest safe next engineering iteration;
-- maintains Requirements, Engineering Plan, and Engineering Notes as semantic lanes that may span a navigable page set;
-- audits architecture, flow, state, roadmap, risk, and evidence relationships for focused diagrams;
+- maintains Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes without forcing them into the page tree;
+- organizes a multi-stage effort as one concise route overview plus one maintainable page per engineering stage;
+- keeps a small single-stage effort on one page instead of forcing a hierarchy;
+- makes the current stage concrete, the next stage directional, and later stages deliberately brief;
+- uses one route diagram by default and adds a stage-local diagram only when it reduces real explanation;
 - revises the current model directly when new evidence changes the plan.
 
 It does not implement code, run experiments, operate hardware, manage project trackers, or synchronize GitHub, Gitee, Feishu, Notion, or other storage systems.
@@ -70,7 +73,19 @@ The skill is self-contained. If a compatible interview or ideation skill is alre
 
 ## Feishu/Lark-native output
 
-When Feishu is the designated workspace, the skill can use a hub-and-child-page structure, consistent role-first naming, native callouts/grids/tables/document cites, and focused Mermaid or whiteboard diagrams. Complex content is split by semantic responsibility and update cadence instead of being forced into one long page. Feishu remains an optional presentation adapter; the core engineering model stays portable.
+When Feishu is the designated workspace, a multi-stage effort defaults to a short route page and one child page per engineering stage. The route page contains the current position, one stage diagram, the native child-page list, and shared boundaries. The current stage carries the detail; future stages remain brief until evidence brings them closer. Feishu remains an optional presentation adapter; the core engineering model stays portable.
+
+Example:
+
+```text
+B1｜Navigation Whiteboxing Route
+├── 01｜Stage 1: Understand the Current System
+├── 02｜Stage 2: Consolidate Parameters and Outputs
+├── 03｜Stage 3: Validate Costmap Noise
+└── ...
+```
+
+Progress normally updates one stage page. The overview changes only when the current stage, ordering, dependency, or boundary changes.
 
 ## Decision-driven research
 
@@ -113,8 +128,10 @@ MIT License. See [LICENSE](LICENSE).
 - 针对真正影响决策的缺口，主动搜索官方机制、类似故障、社区实践、替代方案和反例；
 - 默认每轮只推进一个最关键的不确定性；
 - 以“下一轮工程验证是否已经足够清晰”为完成条件；
-- 将 Requirements、Engineering Plan、Engineering Notes 作为三条稳定语义车道，根据复杂度展开成可导航的页面体系；
-- 审查架构、流程、状态、路线、风险和证据关系，为重要内容配置聚焦图表；
+- 将 Requirements、Engineering Plan、Engineering Notes 作为内部语义车道，不强制映射成页面目录；
+- 多阶段工程默认采用“一张路线总览 + 每阶段一个子页”；
+- 当前阶段写具体，下一阶段保留轮廓，远期阶段只写目的和进入条件；
+- 根页面默认只放一张工程演进图，阶段页只有在确实能减少解释时才增加图；
 - 新证据推翻旧判断时，直接修改当前需求和计划。
 
 它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间，也不把 GitHub、Gitee、飞书、Notion 或本地 Markdown 固定为核心存储。
@@ -135,13 +152,21 @@ MIT License. See [LICENSE](LICENSE).
 
 ## 设计边界
 
-三条语义车道稳定，但文件名、存储介质和颗粒度由项目决定。近期阶段写具体，远期阶段保持粗略；需求和计划表达当前最佳认知，而不是不可修改的合同。
+三条语义车道稳定，但它们主要服务 AI 的判断，不要求读者先理解一套文档分类。近期阶段写具体，远期阶段保持粗略；需求和计划表达当前最佳认知，而不是不可修改的合同。
 
 ## 飞书原生输出
 
-指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面，再决定保留单页还是采用“发现总览 + 需求基线 + 系统现状 + 演进路线 + 技术研判 + 证据索引”的子页面结构。标题采用统一的 `NN｜语义角色：具体范围` 语法，并使用 Callout、分栏、表格、文档引用、子页面列表和 Mermaid/画板提升阅读与迭代体验。
+指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面。单阶段工作保持单页；多阶段工作默认采用“路线总览 + 每阶段一个子页”：
 
-重要关系不会只留在段落里：系统依赖、运行时序、状态转换、阶段路线、方案比较、风险链路和证据来源会分别选择合适的图表。多个聚焦图优先于一张塞满所有信息的大图。
+```text
+B1｜导航白盒化路线
+├── 01｜阶段一：看清当前系统
+├── 02｜阶段二：收拢参数与输出
+├── 03｜阶段三：验证 Costmap 离散噪声
+└── ...
+```
+
+根页面只保留简短背景、当前位置、一张工程演进图、子页面列表和共同边界。普通进展只更新当前阶段；新证据只更新受影响的阶段。Callout、表格、分栏和额外画板不再作为丰富度指标，只在真正降低阅读成本时使用。
 
 ## 多角度研究
 

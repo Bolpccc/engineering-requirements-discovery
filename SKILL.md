@@ -29,9 +29,11 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 3. Research decision-relevant public evidence when it can materially improve the choice. Seek authoritative mechanisms, real-world reports, alternatives, and counterexamples; do not collect links without decision impact.
 4. Separate facts, assumptions, preferences, unknowns, and conflicting evidence. Advance one highest-impact uncertainty per turn by default and give a recommended answer when a real choice is required.
 5. Stop interviewing when the next useful engineering iteration is clear enough to start safely, even if the eventual architecture remains uncertain. Preserve unresolved decision-relevant gaps as open questions.
-6. When the user has named a persistent workspace, maintain the semantic lanes of Requirements, Engineering Plan, and Engineering Notes. Split them into a navigable document set when their audience, update cadence, or technical scope differs; do not force them into one page or exactly three files.
-7. Audit visual opportunities. Important architecture, flow, state, timeline, comparison, risk, or evidence relationships should be expressed with focused diagrams as well as prose.
-8. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Reassess the requirements and plan directly; record the reasoning in Engineering Notes instead of creating a change-request system.
+6. When the user has named a persistent workspace, maintain Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes. Keep a small single-stage effort on one page. For a multi-stage effort, present the lanes through a concise overview and one page per engineering stage by default; do not expose the internal classification as the page tree unless it genuinely helps the reader.
+7. Match document detail to engineering proximity. Make the current stage concrete, the next stage directional, and later stages skeletal. Write for the engineer's attention, not for apparent completeness.
+8. Use a natural engineering-work-document voice. Prefer direct sentences and concrete nouns; do not turn internal labels such as fact, assumption, preference, unknown, decision impact, or evidence type into repetitive visible headings.
+9. Use one overview diagram for the multi-stage route by default. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota or a rich-block quota.
+10. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the overview only when the current stage, stage order, or stage boundary changes; record the reasoning without creating a change-request system.
 
 ## Optional Composition
 
@@ -39,9 +41,9 @@ If a compatible requirements-interview or ideation skill is already installed an
 
 - evidence from the existing system;
 - fact/assumption/preference/unknown separation;
-- the three-lane semantic model and its presentation in the chosen workspace;
+- the three-lane semantic model and its attention-oriented presentation in the chosen workspace;
 - decision-driven research and evidence qualification;
-- visual coverage of important relationships;
+- a restrained visual model centered on the engineering route;
 - staged planning and the next-iteration readiness test;
 - the boundary between discovery and build.
 

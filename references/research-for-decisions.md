@@ -26,9 +26,9 @@ Cover the source types that can change the decision:
 
 Use primary sources for factual behavior and API contracts. Use community posts as experience evidence, not universal proof. Prefer several independent perspectives over many copies of the same claim.
 
-## Evidence Card
+## Internal Evidence Card
 
-For each material source, capture:
+For each material source, capture internally:
 
 - **Claim:** what the source actually supports;
 - **Source:** title, direct link, author or project, and publication/update date when available;
@@ -39,7 +39,7 @@ For each material source, capture:
 - **Confidence:** high, medium, or low, with a short reason;
 - **Decision impact:** what changes if the claim holds.
 
-Separate quotations and observed facts from your inference. Link citations near the claims they support.
+Separate quotations and observed facts from your inference. This structure is for reasoning quality, not a mandatory user-facing table. In the living document, normally keep only the decision-relevant takeaway, its limitation, and a nearby source link.
 
 ## Search Shape
 
@@ -65,11 +65,11 @@ Stop when:
 
 Do not continue merely to increase the number of links. If sources conflict, preserve the conflict and define what current-system evidence would resolve it.
 
-## Integrate Without Polluting the Core Documents
+## Integrate Without Polluting the Stage Documents
 
-- **Requirements:** include only resulting needs, constraints, and success conditions.
-- **Engineering Plan:** include the chosen implication and its acceptance evidence.
-- **Engineering Notes:** keep the synthesis, alternatives, applicability limits, and unresolved conflicts.
-- **Evidence Index:** keep source cards and links when the portfolio is substantial.
+- Put the resulting need, constraint, implication, or unresolved question in the stage it affects.
+- Add a short `Related material` or localized equivalent at the end of that stage when links help future work.
+- Do not create a separate evidence index by default. Create one only when the source portfolio has its own audience or update cadence and the user will actually maintain it.
+- Do not expose full evidence cards merely to show research thoroughness. Keep the detailed qualification in reasoning unless it changes a decision.
 
 If browsing is unavailable, write a precise research brief and leave the claim unresolved. Never invent sources or present memory as current verification.
