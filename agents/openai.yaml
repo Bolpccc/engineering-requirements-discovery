@@ -1,4 +1,4 @@
 interface:
   display_name: "Engineering Requirements Discovery"
-  short_description: "Clarify engineering requirements and stage the next iteration"
-  default_prompt: "Use $engineering-requirements-discovery to clarify this engineering goal, inspect the real system, and organize the next engineering stages in the designated workspace."
+  short_description: "Probe engineering intent and stage the next iteration"
+  default_prompt: "Use $engineering-requirements-discovery to challenge my assumptions, inspect the real system, uncover the actual need, and define the next evidence-driven engineering iteration."

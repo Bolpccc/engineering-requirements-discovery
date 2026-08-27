@@ -1,124 +1,180 @@
 # Requirements Interview
 
-Use this reference for a fresh discovery session, a resumed session, or a return prompted by new engineering evidence.
+Use this reference for a fresh discovery session, a resumed session, or a return prompted by new engineering evidence. The interview is an active engineering diagnosis, not a neutral questionnaire. Its job is to uncover the real need, challenge a weak framing, and make the next useful verification clear.
 
-## 1. Intake the Actual Input
+## 1. Intake the Input as Given
 
-Accept a brain dump, transcript, sketches, existing documents, a bug history, or a short goal. Do not make the user restate it in a form.
+Accept a brain dump, transcript, sketches, existing documents, bug history, or short goal. The user does not need to restate it in a template.
 
-Extract what is already present before asking anything:
+Extract what is already present:
 
-- the observed problem and who or what experiences it;
-- why it matters now;
-- the desired outcome;
-- constraints and exclusions;
+- the observed problem, affected system or person, and operating context;
+- why it matters now and the cost of leaving it alone;
+- the desired outcome and any solution already proposed;
+- constraints, exclusions, preferences, and authority boundaries;
 - claimed success conditions;
-- current implementation and prior attempts;
-- relevant internal documents and prior investigations;
-- assumptions, contradictions, and unknowns;
+- current implementation, prior attempts, and relevant evidence;
+- contradictions, assumptions, and unknowns;
 - any named workspace for persistent documents.
 
-State the current interpretation briefly. Surface materially different readings instead of silently choosing one.
+Do not praise the input generically. Say what is already strong, what is weak enough to change the direction, and what you currently believe.
 
-## 2. Inspect the Existing System
+## 2. Inspect Before Asking
 
-When the work concerns an existing system, inspect only the relevant context:
+When an existing system is involved, inspect the smallest relevant set of:
 
 - architecture and component boundaries;
-- current implementation and reusable capabilities;
+- implementation and reusable capabilities;
 - configuration and operational constraints;
-- nearby tests, logs, experiment results, and known failures;
-- historical decisions that still constrain the next iteration.
-- relevant internal Wiki pages, design notes, incidents, and evidence indexes within the authorized scope.
+- tests, logs, experiment results, incidents, and known failures;
+- decisions and internal documents that still constrain the work.
 
-Prefer primary engineering evidence over summaries. Keep inspection read-only. Do not start a build, test run, prototype, remote action, or hardware operation merely to answer the interview.
+Prefer primary engineering evidence over summaries. Keep inspection read-only. Do not ask the user for a discoverable fact, and do not start a build, test run, prototype, remote action, or hardware operation merely to answer the interview.
 
-Do not ask the user for a discoverable repository fact. State what was found and distinguish current evidence from stale documentation or inference.
+Read [research-for-decisions.md](research-for-decisions.md) when a public mechanism, similar incident, alternative, or counterexample could answer the uncertainty more reliably than the user. State what was found and distinguish current-system evidence, public evidence, old documentation, and inference.
 
-## 3. Research Before Asking When It Helps
+## 3. Open with a Working Interpretation
 
-Some unknowns are better answered by public evidence than by user memory. Read [research-for-decisions.md](research-for-decisions.md) when the uncertainty concerns:
+Before the first question, briefly cover:
 
-- current behavior or limitations of a framework, library, algorithm, protocol, or tool;
-- similar failures reported by other engineering teams;
-- alternative architectures or mitigation strategies;
-- standards, research, benchmarks, or operational lessons that could change the next iteration.
+1. **Current reading:** the concrete problem and desired outcome you think the user means.
+2. **Silent forks:** materially different interpretations you would otherwise choose between without permission, such as the full system versus one failure path, automatic versus on-demand behavior, or the named solution versus the outcome behind it.
+3. **Destination:** what a useful handoff appears to be, such as a decision, a bounded research question, or a staged engineering plan with acceptance evidence.
 
-Research the precise decision question, not the whole topic. Bring back mechanisms, field experience, counterexamples, and applicability limits. If the public evidence is weak or environments differ materially, preserve the result as qualified evidence rather than fact.
+Keep the whole opener to three to five short sentences. Do not render `Current reading`, `Silent forks`, or `Destination` as visible headings, and do not repeat the opener on later turns unless the interpretation materially changes. State it as a falsifiable interpretation, not a ceremonial summary. If the user named a solution before establishing the problem, say so directly. Do not assume the requested mechanism is the requirement.
 
-## 4. Maintain the Working Model
+For a small request whose problem, boundary, and acceptance evidence are already clear, skip unnecessary interviewing and proceed to the handoff or document update.
 
-Classify important statements internally:
+## 4. Maintain the Internal Model
+
+Classify consequential statements internally:
 
 | Class | Meaning | Treatment |
 | --- | --- | --- |
-| Fact | Directly observed or supported by current evidence | Use as the basis for requirements and planning; cite its source when useful. |
-| Assumption | Believed for now but not verified | Carry visibly and identify what evidence would confirm or overturn it. |
+| Fact | Directly observed or supported by current evidence | Use as the basis for requirements and cite it when useful. |
+| Assumption | Believed for now but not verified | Name what would confirm or overturn it. |
 | Preference | A chosen tradeoff or desired direction | Preserve it unless it conflicts with a harder constraint. |
-| Unknown | Missing information that can change a decision | Inspect, research, ask, or record it as an open question. |
+| Unknown | Missing information that can change the direction | Inspect, research, ask, or preserve as an open question. |
 
-Reclassify statements when evidence changes. Do not promote a preference, old plan, or document assertion to fact.
+Track five readiness dimensions internally. Each is `ready` only when supported by concrete evidence, not because the conversation has mentioned the topic:
 
-## 5. Check Readiness
+- **Problem:** who or what experiences which failure, under what condition, with what impact.
+- **Goal:** the observable change needed, separate from a preferred implementation.
+- **Success Criteria:** evidence that can accept or reject the next iteration, including the check method or named observation.
+- **Scope:** what the current iteration owns, excludes, and is authorized to change.
+- **Consistency:** contradictions are resolved or priorities are explicit where goals conflict.
 
-Track five dimensions without turning them into ceremony or a user-facing scorecard:
+Do not print a gate score or readiness dashboard. Re-evaluate all five after each answer, but continue along one decision branch instead of jumping mechanically between dimensions.
 
-1. **Problem** — Is the concrete engineering problem understood in its operating context?
-2. **Goal** — Is the desired change specific enough to guide a near-term decision?
-3. **Success Criteria** — Is there observable evidence that can accept or reject the next iteration?
-4. **Scope** — Are the current iteration and its exclusions clear?
-5. **Consistency** — Do the stated requirements, constraints, evidence, and proposed direction agree?
+For the active branch, remember only: the gap being resolved, evidence already obtained, the number of consecutive answers that did not add concrete evidence, and any blocker. This is conversation state, not a new persistent artifact or tracker.
 
-These dimensions need only be sufficiently clear for the next useful engineering iteration. Do not wait for the final system architecture or every future phase to be known.
+## 5. Generate and Rank Candidate Gaps
 
-## 6. Select the Next Question
+After each answer or inspection result, list candidate gaps internally. Eliminate gaps already answered, safely discoverable, researchable without the user, or too distant to affect the next iteration.
 
-Choose the unresolved uncertainty with the greatest ability to change the next iteration. By default, ask one focused question and wait for its answer.
+Rank the remaining gaps in this order:
 
-For a consequential choice:
+1. a contradiction, weak premise, false problem, or solution treated as a requirement;
+2. a missing concrete incident, affected actor or system, operating condition, or cost of inaction;
+3. a missing causal link between the desired outcome and the proposed solution;
+4. success that cannot yet be observed, falsified, or accepted;
+5. a scope or priority conflict that changes the next iteration;
+6. details that affect only a later stage.
 
-- state the options that are genuinely viable;
-- recommend one and explain the engineering reason briefly;
-- ask the user to confirm or change it.
+Ask the highest-ranked gap whose answer can genuinely change the direction. Stay on that branch until it closes, is blocked, or is shown to be lower impact.
+
+## 6. Form One Sharp Question
+
+Every interview turn should contain:
+
+- a **context anchor** from the user's words or engineering evidence;
+- the **current judgment, hypothesis, or tension**;
+- one **decision-relevant unknown**.
+
+Ask one logical question and wait. A short setup may contain several statements, but it must not hide several questions. End the turn with one question and use no more than one question mark.
+
+Use natural open questions to uncover a lived incident, motivation, dissatisfaction, or missing evidence. Use two or three options with a recommended answer when the user must choose an engineering tradeoff, boundary, or priority. When the need itself is still unformed, challenge the framing but do not recommend a solution before obtaining a concrete incident or equivalent evidence. Do not force an unformed need into premature options.
 
 Do not ask:
 
-- questions already answered in the input;
-- questions that read-only inspection can settle;
-- questions that a bounded public research pass can settle more reliably;
-- distant design questions that do not affect the next iteration;
-- large questionnaires or generic discovery checklists.
+- `Can you tell me more?` or another context-free invitation;
+- a question already answered by the brain dump or evidence;
+- several independent questions in one message;
+- repeated abstract `why` questions that do not produce an incident, consequence, or choice;
+- a distant design detail that cannot change the current stage;
+- a question whose only purpose is to fill a framework field.
 
-Challenge vague language with an observable distinction. Surface contradictions directly. If two or three attempts fail because the user cannot articulate the answer, offer a small concrete strawman for correction rather than repeating the same abstract question.
+## 7. Use the Right Probing Move
 
-## 7. Handle Knowledge Gaps
+Choose the move that matches the gap:
 
-When a missing answer materially affects the direction, record:
+- **Concrete incident:** ask for the most recent real occurrence, including what triggered it and what failed. Use this instead of reasoning about hypothetical users.
+- **Remove the proposed solution:** suppose the named mechanism is unavailable; ask which outcome must still be preserved. This separates the need from solution fixation.
+- **Cost-of-inaction counterfactual:** ask what continues to fail or cost time, money, safety margin, or attention if nothing changes for a meaningful period.
+- **Forced tradeoff:** when goals conflict, state the conflict, recommend a priority, and ask the user to accept or change it.
+- **Contradiction replay:** quote the two incompatible claims and require one priority or a condition that reconciles them.
+- **Failure falsification:** ask what observed result would prove the proposed direction did not solve the problem.
+- **Scope cut:** ask what would be removed first if time, authority, or resources were halved.
 
-- **Question:** the precise unknown;
-- **Decision impact:** which requirement, phase, or alternative depends on it;
-- **Required depth:** the minimum understanding or evidence needed;
-- **Closure type:** `research`, `prototype`, `decision`, or `task`;
-- **Closure evidence:** what would make the question answerable.
+Do not infer hidden psychology. A deep requirement is an engineering priority supported by an incident, consequence, tradeoff, or evidence.
 
-Do not perform the closing work under this skill alone. A prototype or experiment is a proposed next iteration or a separate handoff, not part of the interview.
+## 8. Take a Position Without Leading
 
-## 8. Pause, Resume, and Re-enter
+Directly challenge vague demand, undefined terms, hypothetical users, contradictory constraints, and weak premises. Explain the evidence or reasoning behind the challenge.
 
-Pause when:
+Avoid empty phrases such as `that could work`, `interesting approach`, or `you may want to consider`. Say what you think is wrong, what appears stronger, and why. A recommendation must remain correctable: present the best current position, then let the user confirm or replace it.
 
-- the user asks to stop;
-- remaining uncertainty depends on research, a prototype, a decision input, or outside work;
-- the next iteration is already clear enough to start safely.
+Do not use agreement language to conceal uncertainty. Do not turn directness into certainty unsupported by evidence.
 
-On resume, read the current living documents or session state. Reopen only questions that remain consequential; do not re-interview settled areas without contradictory evidence.
+## 9. Compare Approaches Only at a Real Fork
 
-When new evidence arrives:
+When two or more mechanisms or boundaries remain genuinely viable:
 
-1. identify which facts, assumptions, requirements, or phase choices it affects;
-2. retain conclusions still supported;
-3. replace conclusions that are no longer supported;
-4. update the next iteration and its acceptance evidence;
-5. record the evidence and resulting judgment in Engineering Notes.
+1. present two or three approaches;
+2. lead with the recommended one and its engineering reason;
+3. include a minimum-change or status-quo option when it is credible;
+4. compare only the dimensions that affect this decision;
+5. ask one choice question after the comparison.
 
-The goal is an accurate current model, not a historical accumulation of obsolete plans.
+Do not manufacture three versions of the same idea. A factual investigation, a settled small change, or an evidence-gathering stage does not need an artificial approach comparison.
+
+## 10. Detect Stalls and Change Method
+
+Track whether each answer adds concrete evidence to the active gap. After two consecutive answers fail to do so, do not ask a third direct question. The third attempt must change method:
+
+- **Articulation stall:** the user cannot state the need but can react to something concrete. Present the smallest strawman—one sample output, behavior statement, interface, or boundary—and ask what to keep, change, or remove. The reaction is evidence; the strawman is disposable.
+- **Empirical unknown:** discussion cannot answer it. Record a `research` or `prototype` gap and the evidence that would close it. Research may proceed read-only under this skill; prototype execution requires a separate handoff.
+- **Missing decision input:** record a `decision` gap and what input must exist before the choice is meaningful.
+- **Outside work:** record a `task` gap and the precise result that must return.
+
+For every open question, preserve:
+
+- the exact unknown;
+- the requirement, stage, or alternative it changes;
+- the minimum depth needed;
+- closure type: `research`, `prototype`, `decision`, or `task`;
+- the evidence that closes it;
+- any other open question it depends on.
+
+A written open question is a reason to pause, not a substitute for readiness.
+
+## 11. Pause, Resume, and Re-enter
+
+Pause when the user asks to stop, the remaining uncertainty depends on outside work, or the core need and next useful verification are already clear.
+
+On resume, read the current session state or living documents. Keep settled evidence. Reopen only unresolved questions whose dependencies are now satisfied or whose prior answer has been contradicted. Do not restart the five dimensions from zero.
+
+When new evidence arrives, identify what it changes, retain conclusions still supported, replace obsolete conclusions, and update the next iteration and its acceptance evidence.
+
+## 12. Pressure-Test Before Documenting
+
+Before producing persistent requirements or a plan, challenge the current model once:
+
+- Are we solving a surface symptom or the real problem?
+- Has the proposed scope grown beyond the outcome that justifies it?
+- Is a hidden dependency or authority boundary being treated as available?
+- Can the next iteration fail in a way that would disprove the current direction?
+
+If this review exposes a consequential gap, ask the single highest-impact question and re-evaluate. Otherwise proceed without announcing an internal review ceremony.
+
+Before stopping, internally confirm four items: the next engineering verification, evidence that accepts it, an observed result that would reject the current direction, and the scope or authority boundary for carrying it out. Stop when these items and the concrete problem, desired change, and consequential tradeoffs are clear enough to begin safely. There is no question limit, but there is also no reward for continuing after the direction is ready. The eventual architecture and distant stages may remain uncertain.

@@ -22,6 +22,7 @@ If Feishu tools are unavailable, return the proposed tree, page drafts, and diag
 | create an approved stage page or archive | `wiki +node-create` |
 | inspect outline, body, revision, and block IDs | `docs +fetch --api-version v2` |
 | make a bounded body update | `docs +update --api-version v2` |
+| embed a new Mermaid diagram | native `<whiteboard type="mermaid">` through `lark-doc` v2 |
 | move an existing Wiki page | `wiki +move` |
 | inspect a board source or preview | `whiteboard +query` |
 
@@ -89,7 +90,9 @@ The page should feel like a maintained engineering note, not a generated report.
 
 ## Diagram Rule
 
-For a multi-stage package, the root has one overview diagram by default. A simple vertical Mermaid flowchart is preferred because it remains readable in Feishu and on narrow screens. Each stage node should contain only:
+For a multi-stage package, the root has one overview diagram by default. Once any overview or stage-local diagram is selected, automatically invoke `$mermaid-skill`: this adapter supplies the engineering meaning and placement, while `$mermaid-skill` selects the diagram form, produces the source, validates it, renders a preview, and checks readability.
+
+Embed new Mermaid diagrams with Feishu's editable native `<whiteboard type="mermaid">` representation. Do not upload a PNG or SVG export by default. Use a simple vertical Mermaid flowchart for the route overview because it remains readable in Feishu and on narrow screens. Each stage node should contain only:
 
 - stage number and short name;
 - the problem it resolves;
@@ -99,7 +102,9 @@ Mark the current stage visibly. Link navigation through the native child-page li
 
 Create a stage-local diagram only when it replaces substantial explanation of an actual architecture, state, sequence, comparison, or failure path. Do not create diagrams for evidence provenance, generic feedback loops, or document organization unless the user asks for them.
 
-Always read back the diagram source and render a preview. If labels overlap or the result is too wide, simplify the labels or switch to a vertical layout.
+Before publishing, validate the Mermaid source and inspect a rendered preview locally. A designated Feishu workspace does not by itself authorize sending engineering content to Kroki or another external renderer. If local validation or preview is unavailable and no external renderer was separately authorized, keep the source as a session draft instead of publishing an unchecked diagram.
+
+After publishing, fetch the exact document again, read back the Mermaid source, and inspect the native whiteboard preview. If the source changed, labels overlap, or the result is too wide, make the smallest source correction, revalidate, republish, and read back once more.
 
 ## Targeted Maintenance
 
