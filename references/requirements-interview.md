@@ -15,7 +15,7 @@ Extract what is already present:
 - claimed success conditions;
 - current implementation, prior attempts, and relevant evidence;
 - contradictions, assumptions, and unknowns;
-- any named workspace for persistent documents.
+- any named local workspace for persistent documents.
 
 Do not praise the input generically. Say what is already strong, what is weak enough to change the direction, and what you currently believe.
 

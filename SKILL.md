@@ -1,6 +1,6 @@
 ---
 name: engineering-requirements-discovery
-description: Clarify ambiguous or evolving engineering goals against the real system and relevant external evidence, then maintain a lightweight engineering map and outcome-based stage documents for the next safe iteration. Use for software, robotics, infrastructure, or other complex engineering work when the problem, constraints, success criteria, evidence base, or next iteration are not yet clear. Do not use to implement an already-settled specification, administer project trackers, or merely reformat existing documentation.
+description: Clarify ambiguous or evolving engineering goals against the real system and relevant external evidence, then maintain a lightweight local engineering map and outcome-based stage documents for the next safe iteration. Use for software, robotics, infrastructure, or other complex engineering work when the problem, constraints, success criteria, evidence base, or next iteration are not yet clear. Do not use to implement an already-settled specification, administer project trackers, publish externally, or merely reformat existing documentation.
 ---
 
 # Engineering Requirements Discovery
@@ -12,15 +12,14 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 - Own `DISCUSS -> DOCUMENT -> PLAN`.
 - Keep `BUILD` outside this skill. Do not implement code, run experiments, operate hardware, or begin deployment under this skill alone.
 - Do not manage issues, owners, deadlines, branches, pull requests, or status synchronization.
-- Treat GitHub, Gitee, Feishu, Notion, and local Markdown as replaceable storage. Do not encode a storage product into the engineering model.
-- A request to discover requirements does not authorize persistent writes or external actions. Use the workspace the user explicitly names; without one, stay in conversation.
+- Persist discovery documents only in a user-designated local workspace. Without one, stay in conversation.
+- External publication is a separate downstream workflow. Editing or approving the local bundle does not authorize publishing it. Hand off only after the user has reviewed the local result and explicitly confirmed it is ready for external publication.
 
 ## Load References as Needed
 
 - Always read [requirements-interview.md](references/requirements-interview.md).
 - Read [research-for-decisions.md](references/research-for-decisions.md) when public technical knowledge, similar incidents, alternatives, or counterexamples could change the next iteration.
 - Read [document-model.md](references/document-model.md) whenever persistent documents are requested or already exist. Use its naming and bundle rules for a local Markdown workspace.
-- Read [feishu-workspace.md](references/feishu-workspace.md) only when the user designates Feishu/Lark as the workspace.
 
 ## Route
 
@@ -33,11 +32,11 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 7. Track Problem, Goal, Success Criteria, Scope, and Consistency internally as evidence-backed readiness dimensions. Do not show a scoreboard. Keep interviewing without a fixed question limit until the core need, consequential tradeoffs, and next verification are clear; distant architecture may remain unknown.
 8. When a real engineering fork remains, compare two or three viable approaches, lead with a recommendation, and include the minimum-change or status-quo option when it is credible. Do not manufacture alternatives for a factual investigation or a settled small request.
 9. Before documenting, pressure-test the current model for a false problem, scope creep, hidden dependencies, and unfalsifiable success. If the review exposes a consequential gap, ask one more question; otherwise proceed.
-10. When the user has named a persistent workspace, locate an existing equivalent before creating documents. Keep a small single-stage effort on one page. For a complex multi-stage effort, maintain a lightweight Engineering Bundle: one map and one flat document per outcome-based stage. Requirements, Engineering Plan, and Engineering Notes remain internal semantic lanes, not files or page categories.
+10. When the user has named a local persistent workspace, locate an existing equivalent before creating documents. Keep a small single-stage effort on one page. For a complex multi-stage effort, maintain a lightweight Engineering Bundle: one map and one flat document per outcome-based stage. Requirements, Engineering Plan, and Engineering Notes remain internal semantic lanes, not files or page categories.
 11. On resume, read the map first, then the current stage document and only the linked material that affects the current decision. Treat direct human edits as part of the shared current model: preserve decisions and preferences, verify factual or technical claims, and surface consequential contradictions instead of silently overwriting them.
 12. Match document detail to engineering proximity. Make the current stage concrete enough for continuous human review, the next stage directional, and later stages skeletal. Keep the problem, constraints, design reasoning, implementation direction, and acceptance evidence together in the stage narrative rather than fragmenting them by document type.
 13. Use a natural engineering-work-document voice. Prefer direct sentences and concrete nouns; do not turn internal labels such as fact, assumption, preference, unknown, decision impact, or evidence type into repetitive visible headings.
-14. Use one overview diagram in the map for a multi-stage route by default. Embed diagrams in the relevant Markdown or native page when practical. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota or a rich-block quota. Whenever a diagram is selected, follow Diagram Composition below.
+14. Use one overview diagram in the map for a multi-stage route by default. Embed diagrams in the relevant local Markdown when practical. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota. Whenever a diagram is selected, follow Diagram Composition below.
 15. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the map only when the current stage, stage order, dependency, shared boundary, or key decision changes; record the reasoning without creating a change-request system.
 
 ## Lightweight Engineering Bundle
@@ -62,8 +61,8 @@ For a local Markdown workspace, use the portable flat bundle defined in [documen
 
 - Decide whether a diagram is warranted from the engineering content before invoking a drawing workflow. A multi-stage map warrants one route overview by default. A single-stage page or stage-local explanation warrants one only when it materially clarifies an architecture, state, sequence, comparison, dependency, or failure path.
 - Whenever a diagram is warranted, invoke `$mermaid-skill` automatically. This skill owns the engineering meaning, scope, labels, and document placement; `$mermaid-skill` owns diagram-type selection, Mermaid source, syntax validation, rendered preview, and readability review.
-- The discovery permission boundary still applies. Without a user-designated persistent workspace, use `$mermaid-skill` only to produce session-local Mermaid source and, when available, temporary local validation or preview artifacts. Do not persist diagram files or send the source to Kroki or another external renderer.
-- In a designated workspace, persist or embed only the artifacts that the user authorized for that workspace. Follow the workspace adapter for its native diagram representation and readback requirements; do not upload a static export when an editable native Mermaid representation is available unless the user asks for one.
+- The discovery permission boundary still applies. Without a user-designated local workspace, use `$mermaid-skill` only to produce session-local Mermaid source and, when available, temporary local validation or preview artifacts. Do not persist diagram files or send the source to Kroki or another external renderer.
+- In a designated local workspace, persist or embed only the artifacts authorized for that local bundle. Do not publish diagram source or exports externally under this skill.
 - If `$mermaid-skill` is unavailable, do not install it or claim that validation or rendering occurred. Preserve the diagram intent and draft source in the session, state the missing capability, and continue the engineering handoff without fabricating visual evidence.
 
 ## Optional Composition
@@ -89,5 +88,7 @@ Finish with a compact statement of:
 - assumptions being carried;
 - open questions that could change the plan;
 - where the map and current stage document were updated, or that they remain session-only.
+
+If the user wants the reviewed bundle published externally, state that the local bundle must first be explicitly confirmed as complete, then route publication separately. Do not publish or synchronize it under this skill.
 
 If the user also requested implementation, make the transition explicit and route that work separately under the permissions and safety rules of the current environment.

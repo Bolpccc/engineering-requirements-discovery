@@ -1,4 +1,4 @@
 interface:
   display_name: "Engineering Requirements Discovery"
-  short_description: "Clarify intent and maintain a lightweight engineering map"
-  default_prompt: "Use $engineering-requirements-discovery to challenge my assumptions, inspect the real system, and maintain a lightweight engineering map for the next evidence-driven iteration."
+  short_description: "Clarify intent and maintain a local engineering map"
+  default_prompt: "Use $engineering-requirements-discovery to challenge my assumptions, inspect the real system, and maintain a lightweight local engineering map for the next evidence-driven iteration."

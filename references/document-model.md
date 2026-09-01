@@ -1,11 +1,11 @@
 # Lightweight Engineering Bundle
 
-Use this model when the user designates a persistent workspace. The bundle is a human-readable engineering conversation surface: one global map and one continuous document per outcome-based stage. Requirements, plans, and decision notes remain semantic responsibilities inside that writing, not a page taxonomy.
+Use this model when the user designates a local persistent workspace. The bundle is a human-readable engineering conversation surface: one global map and one continuous document per outcome-based stage. Requirements, plans, and decision notes remain semantic responsibilities inside that writing, not a page taxonomy.
 
 ## Persistence Boundary
 
-- Without a designated workspace, keep a session-only draft and state that nothing was persisted.
-- In a designated workspace, locate an existing equivalent before creating anything. Preserve useful content, links, evidence, and the host medium's native structure.
+- Without a designated local workspace, keep a session-only draft and state that nothing was persisted.
+- In a designated local workspace, locate an existing equivalent before creating anything. Preserve useful content, links, evidence, and the existing local structure.
 - Use a single page for a small effort with one near-term iteration, one audience, and a small evidence base.
 - Default to a bundle when the work spans multiple engineering outcomes or the current stage needs sustained requirements, architecture, implementation, and verification discussion.
 - Do not duplicate a source of truth merely to make the bundle look self-contained.
@@ -115,6 +115,8 @@ The current stage is ready to hand to a separate BUILD workflow only when one do
 
 If a consequential item is missing, continue discovery or frame the precise research, prototype, decision, or outside task that will close it. This skill does not perform the build.
 
-## Other Workspace Adapters
+## External Publication Boundary
 
-Preserve the same reader model in Feishu, Notion, or another document system: one lightweight map and one flat page per outcome-based stage. Use native links and editable diagrams, but do not recreate the removed document-type hierarchy. Follow the adapter's mutation and readback rules.
+This skill produces and revises the local bundle only. Do not publish, synchronize, or adapt it to an external document system during discovery.
+
+After the user has reviewed the local files and explicitly confirmed that the bundle is complete and ready to publish, hand the confirmed paths and current revision to a separate publication workflow. Approval to create, edit, or finish the local bundle is not publication approval. If local content changes after confirmation, require a new publication confirmation for the revised content.

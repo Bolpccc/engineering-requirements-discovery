@@ -37,7 +37,7 @@ The skill:
 - uses one route diagram by default, adds a stage-local diagram only when it reduces real explanation, and automatically invokes `$mermaid-skill` whenever a diagram is warranted;
 - revises the current model directly when new evidence changes the plan.
 
-It does not implement code, run experiments, operate hardware, manage project trackers, or synchronize GitHub, Gitee, Feishu, Notion, or other storage systems.
+It does not implement code, run experiments, operate hardware, manage project trackers, or publish and synchronize external document systems.
 
 ## Install
 
@@ -58,13 +58,13 @@ Explicit invocation:
 Use $engineering-requirements-discovery to clarify this engineering goal and define the next evidence-driven iteration.
 ```
 
-You can provide a short goal, a long brain dump, existing documents, or new test evidence. The skill does not wait for a clean brief: it states what it currently believes, exposes materially different interpretations, and asks one question that can change the direction. If you want persistent documents, name the workspace explicitly:
+You can provide a short goal, a long brain dump, existing documents, or new test evidence. The skill does not wait for a clean brief: it states what it currently believes, exposes materially different interpretations, and asks one question that can change the direction. If you want persistent documents, name a local workspace explicitly:
 
 ```text
 Use $engineering-requirements-discovery. Maintain the living documents in this repository under docs/discovery/.
 ```
 
-Without a designated workspace, the skill stays in conversation and does not write files.
+Without a designated local workspace, the skill stays in conversation and does not write files.
 
 ## Lightweight Engineering Bundle
 
@@ -90,7 +90,6 @@ agents/openai.yaml
 references/requirements-interview.md
 references/document-model.md
 references/research-for-decisions.md
-references/feishu-workspace.md
 assets/engineering-bundle/MAP.template.md
 assets/engineering-bundle/STAGE.template.md
 ```
@@ -106,23 +105,11 @@ git clone https://github.com/Agents365-ai/creating-mermaid-diagrams.git \
   ~/.codex/skills/mermaid-skill
 ```
 
-Without a designated persistent workspace, diagrams remain session-local and the workflow does not persist files or send source to Kroki. If `$mermaid-skill` is unavailable, the discovery skill returns the diagram intent and draft source without claiming that it was validated or rendered; it does not install the companion automatically.
+Without a designated local workspace, diagrams remain session-local and the workflow does not persist files or send source to Kroki. If `$mermaid-skill` is unavailable, the discovery skill returns the diagram intent and draft source without claiming that it was validated or rendered; it does not install the companion automatically.
 
-## Feishu/Lark-native output
+## External publication boundary
 
-When Feishu is the designated workspace, the same model becomes one Engineering Map root and one flat child page per outcome-based stage. The Map contains the current position, one stage diagram, the native child-page list, and shared boundaries. The current stage keeps its requirements, design, implementation direction, and verification evidence together; the skill does not create a document-type page tree. The diagram is created through `$mermaid-skill` and embedded as an editable native Mermaid whiteboard rather than a static image by default. Future stages remain brief until evidence brings them closer. Feishu remains an optional presentation adapter; the core engineering model stays portable.
-
-Example:
-
-```text
-B1｜Navigation Whiteboxing Engineering Map
-├── 01｜Understand the Current System
-├── 02｜Consolidate Parameters and Outputs
-├── 03｜Validate Costmap Noise
-└── ...
-```
-
-Progress normally updates one stage page. The overview changes only when the current stage, ordering, dependency, or boundary changes.
+The skill creates and revises the local bundle first. Publishing to any external document system is a separate workflow and requires the user to review the local result and explicitly confirm that it is complete and ready to publish. Permission to edit or finish the local bundle is not publication permission. A later local revision requires a new publication confirmation.
 
 ## Decision-driven research
 
@@ -179,7 +166,7 @@ MIT License. See [LICENSE](LICENSE).
 - 根页面默认只放一张工程演进图，阶段页只有在确实能减少解释时才增加图；一旦确定需要图，就自动调用 `$mermaid-skill`；
 - 新证据推翻旧判断时，直接修改当前需求和计划。
 
-它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间，也不把 GitHub、Gitee、飞书、Notion 或本地 Markdown 固定为核心存储。
+它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间，也不发布或同步外部文档系统。
 
 ## 使用方式
 
@@ -187,13 +174,13 @@ MIT License. See [LICENSE](LICENSE).
 使用 $engineering-requirements-discovery，帮我把这次导航框架重构的目标问清楚，并形成下一轮可验证的工程阶段。
 ```
 
-如果需要持久化，请明确指定位置：
+如果需要持久化，请明确指定本地位置：
 
 ```text
 使用 $engineering-requirements-discovery，并把活文档维护在当前仓库的 docs/discovery/。
 ```
 
-没有指定 Workspace 时，Skill 只在对话中维护草稿，不会自行落盘。
+没有指定本地 Workspace 时，Skill 只在对话中维护草稿，不会自行落盘。
 
 ## 轻量工程 Bundle
 
@@ -222,25 +209,15 @@ git clone https://github.com/Agents365-ai/creating-mermaid-diagrams.git \
   ~/.codex/skills/mermaid-skill
 ```
 
-未指定持久 Workspace 时，图只保留在会话中，不写持久文件，也不把源码发送给 Kroki。若环境中没有 `$mermaid-skill`，本 Skill 会保留图的意图和草稿源码，明确说明尚未校验或渲染，不会自行安装依赖。
+未指定本地 Workspace 时，图只保留在会话中，不写持久文件，也不把源码发送给 Kroki。若环境中没有 `$mermaid-skill`，本 Skill 会保留图的意图和草稿源码，明确说明尚未校验或渲染，不会自行安装依赖。
 
 ## 设计边界
 
 三条语义车道稳定，但它们只服务 AI 的判断，不映射为文件分类。当前阶段用一份连续文档承载深度人机讨论，下一阶段保留方向，远期阶段保持骨架；需求和计划表达当前最佳认知，而不是不可修改的合同。
 
-## 飞书原生输出
+## 外部发布边界
 
-指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面。单阶段工作保持单页；多阶段工作采用“一张工程 Map + 每个结果阶段一个扁平子页”：
-
-```text
-B1｜导航白盒化工程 Map
-├── 01｜看清当前系统
-├── 02｜收拢参数与输出
-├── 03｜验证 Costmap 离散噪声
-└── ...
-```
-
-Map 只保留简短背景、当前位置、一张工程演进图、子页面列表和共同边界。当前阶段在一页内连续表达需求、设计、实现方向和验证，不创建分类子页。工程演进图由 `$mermaid-skill` 生成和校验，并默认以飞书原生、可编辑的 Mermaid 画板嵌入，而不是上传静态图片。普通进展只更新当前阶段；新证据只更新受影响的阶段。Callout、表格、分栏和额外画板只在真正降低阅读成本时使用。
+Skill 先在本地创建和修改 Bundle。写入任何外部文档系统都属于独立发布流程，必须由使用者先审阅本地结果，再明确确认“内容已经完成并可以发布”。允许创建、修改或完成本地 Bundle，不等于授权外部发布；本地内容再次修改后，需要重新确认发布。
 
 ## 多角度研究
 
