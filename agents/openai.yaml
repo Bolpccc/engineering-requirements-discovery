@@ -1,4 +1,4 @@
 interface:
   display_name: "Engineering Requirements Discovery"
-  short_description: "Probe engineering intent and stage the next iteration"
-  default_prompt: "Use $engineering-requirements-discovery to challenge my assumptions, inspect the real system, uncover the actual need, and define the next evidence-driven engineering iteration."
+  short_description: "Clarify intent and maintain a lightweight engineering map"
+  default_prompt: "Use $engineering-requirements-discovery to challenge my assumptions, inspect the real system, and maintain a lightweight engineering map for the next evidence-driven iteration."

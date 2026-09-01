@@ -1,11 +1,11 @@
 ---
 name: engineering-requirements-discovery
-description: Clarify ambiguous or evolving engineering goals against the real system and relevant external evidence, then maintain living requirements, a staged engineering plan, and decision-relevant notes. Use for software, robotics, infrastructure, or other complex engineering work when the problem, constraints, success criteria, evidence base, or next iteration are not yet clear. Do not use to implement an already-settled specification, administer project trackers, or merely reformat existing documentation.
+description: Clarify ambiguous or evolving engineering goals against the real system and relevant external evidence, then maintain a lightweight engineering map and outcome-based stage documents for the next safe iteration. Use for software, robotics, infrastructure, or other complex engineering work when the problem, constraints, success criteria, evidence base, or next iteration are not yet clear. Do not use to implement an already-settled specification, administer project trackers, or merely reformat existing documentation.
 ---
 
 # Engineering Requirements Discovery
 
-Turn current evidence and a messy engineering goal into the smallest safe next iteration. Treat requirements and plans as the current best model, not as frozen commitments.
+Turn current evidence and a messy engineering goal into the smallest safe next iteration. Treat the engineering map, requirements, and plan as the current best model, not as frozen commitments.
 
 ## Boundaries
 
@@ -19,7 +19,7 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 
 - Always read [requirements-interview.md](references/requirements-interview.md).
 - Read [research-for-decisions.md](references/research-for-decisions.md) when public technical knowledge, similar incidents, alternatives, or counterexamples could change the next iteration.
-- Read [document-model.md](references/document-model.md) when persistent documents are requested or already exist.
+- Read [document-model.md](references/document-model.md) whenever persistent documents are requested or already exist. Use its naming and bundle rules for a local Markdown workspace.
 - Read [feishu-workspace.md](references/feishu-workspace.md) only when the user designates Feishu/Lark as the workspace.
 
 ## Route
@@ -33,15 +33,34 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 7. Track Problem, Goal, Success Criteria, Scope, and Consistency internally as evidence-backed readiness dimensions. Do not show a scoreboard. Keep interviewing without a fixed question limit until the core need, consequential tradeoffs, and next verification are clear; distant architecture may remain unknown.
 8. When a real engineering fork remains, compare two or three viable approaches, lead with a recommendation, and include the minimum-change or status-quo option when it is credible. Do not manufacture alternatives for a factual investigation or a settled small request.
 9. Before documenting, pressure-test the current model for a false problem, scope creep, hidden dependencies, and unfalsifiable success. If the review exposes a consequential gap, ask one more question; otherwise proceed.
-10. When the user has named a persistent workspace, maintain Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes. Keep a small single-stage effort on one page. For a multi-stage effort, present the lanes through a concise overview and one page per engineering stage by default; do not expose the internal classification as the page tree unless it genuinely helps the reader.
-11. Match document detail to engineering proximity. Make the current stage concrete, the next stage directional, and later stages skeletal. Write for the engineer's attention, not for apparent completeness.
-12. Use a natural engineering-work-document voice. Prefer direct sentences and concrete nouns; do not turn internal labels such as fact, assumption, preference, unknown, decision impact, or evidence type into repetitive visible headings.
-13. Use one overview diagram for the multi-stage route by default. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota or a rich-block quota. Whenever a diagram is selected, follow Diagram Composition below.
-14. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the overview only when the current stage, stage order, or stage boundary changes; record the reasoning without creating a change-request system.
+10. When the user has named a persistent workspace, locate an existing equivalent before creating documents. Keep a small single-stage effort on one page. For a complex multi-stage effort, maintain a lightweight Engineering Bundle: one map and one flat document per outcome-based stage. Requirements, Engineering Plan, and Engineering Notes remain internal semantic lanes, not files or page categories.
+11. On resume, read the map first, then the current stage document and only the linked material that affects the current decision. Treat direct human edits as part of the shared current model: preserve decisions and preferences, verify factual or technical claims, and surface consequential contradictions instead of silently overwriting them.
+12. Match document detail to engineering proximity. Make the current stage concrete enough for continuous human review, the next stage directional, and later stages skeletal. Keep the problem, constraints, design reasoning, implementation direction, and acceptance evidence together in the stage narrative rather than fragmenting them by document type.
+13. Use a natural engineering-work-document voice. Prefer direct sentences and concrete nouns; do not turn internal labels such as fact, assumption, preference, unknown, decision impact, or evidence type into repetitive visible headings.
+14. Use one overview diagram in the map for a multi-stage route by default. Embed diagrams in the relevant Markdown or native page when practical. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota or a rich-block quota. Whenever a diagram is selected, follow Diagram Composition below.
+15. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the map only when the current stage, stage order, dependency, shared boundary, or key decision changes; record the reasoning without creating a change-request system.
+
+## Lightweight Engineering Bundle
+
+For a local Markdown workspace, use the portable flat bundle defined in [document-model.md](references/document-model.md):
+
+```text
+<project-key>-<topic-key>-engineering-bundle/
+├── MAP.md
+├── 01-<outcome-key>.md
+├── 02-<outcome-key>.md
+└── ...
+```
+
+- Derive `project-key` from an existing canonical project identifier. Derive `topic-key` from the aligned engineering problem, not an unconfirmed solution. Name stages for observable engineering outcomes, not generic phases.
+- Use lowercase ASCII kebab-case for filesystem keys and the project's main language for reader-facing titles. If no stable English key exists, propose one recommended key with its basis and wait for confirmation before creating the bundle or stage. Once confirmed, keep keys stable unless the engineering scope or stage outcome materially changes.
+- Do not create stage directories, stage `README.md` files, document-type files, empty attachments, or detailed future-stage content. Create `assets/` only for real artifacts that cannot reasonably be embedded or linked in place.
+- Do not split a stage document merely because it is long. Only create an `appendix-<purpose-key>.md` after the user explicitly agrees that the stage can no longer be reviewed effectively as one document.
+- Use the bundled [map template](assets/engineering-bundle/MAP.template.md) and [stage template](assets/engineering-bundle/STAGE.template.md) as responsibility guides. Adapt their prose and omit empty sections; do not fill them mechanically.
 
 ## Diagram Composition
 
-- Decide whether a diagram is warranted from the engineering content before invoking a drawing workflow. A multi-stage route overview warrants one by default. A single-stage page or stage-local explanation warrants one only when it materially clarifies an architecture, state, sequence, comparison, dependency, or failure path.
+- Decide whether a diagram is warranted from the engineering content before invoking a drawing workflow. A multi-stage map warrants one route overview by default. A single-stage page or stage-local explanation warrants one only when it materially clarifies an architecture, state, sequence, comparison, dependency, or failure path.
 - Whenever a diagram is warranted, invoke `$mermaid-skill` automatically. This skill owns the engineering meaning, scope, labels, and document placement; `$mermaid-skill` owns diagram-type selection, Mermaid source, syntax validation, rendered preview, and readability review.
 - The discovery permission boundary still applies. Without a user-designated persistent workspace, use `$mermaid-skill` only to produce session-local Mermaid source and, when available, temporary local validation or preview artifacts. Do not persist diagram files or send the source to Kroki or another external renderer.
 - In a designated workspace, persist or embed only the artifacts that the user authorized for that workspace. Follow the workspace adapter for its native diagram representation and readback requirements; do not upload a static export when an editable native Mermaid representation is available unless the user asks for one.
@@ -69,6 +88,6 @@ Finish with a compact statement of:
 - the next iteration and its acceptance evidence;
 - assumptions being carried;
 - open questions that could change the plan;
-- where the living documents were updated, or that they remain session-only.
+- where the map and current stage document were updated, or that they remain session-only.
 
 If the user also requested implementation, make the transition explicit and route that work separately under the permissions and safety rules of the current environment.

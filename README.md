@@ -29,8 +29,9 @@ The skill:
 - compares two or three approaches only when a real engineering fork exists;
 - pressure-tests the problem, scope, dependencies, and acceptance evidence before documenting;
 - defines the smallest safe next engineering iteration;
-- maintains Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes without forcing them into the page tree;
-- organizes a multi-stage effort as one concise route overview plus one maintainable page per engineering stage;
+- maintains Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes without turning them into separate files;
+- organizes a complex multi-stage effort as one lightweight engineering map plus one flat, continuous document per outcome-based stage;
+- derives stable bundle and stage names from canonical project identifiers and aligned engineering outcomes instead of improvising them;
 - keeps a small single-stage effort on one page instead of forcing a hierarchy;
 - makes the current stage concrete, the next stage directional, and later stages deliberately brief;
 - uses one route diagram by default, adds a stage-local diagram only when it reduces real explanation, and automatically invokes `$mermaid-skill` whenever a diagram is warranted;
@@ -65,6 +66,22 @@ Use $engineering-requirements-discovery. Maintain the living documents in this r
 
 Without a designated workspace, the skill stays in conversation and does not write files.
 
+## Lightweight Engineering Bundle
+
+For a complex multi-stage effort in a local Markdown workspace, the default persistent shape is deliberately flat:
+
+```text
+<project-key>-<topic-key>-engineering-bundle/
+├── MAP.md
+├── 01-<outcome-key>.md
+├── 02-<outcome-key>.md
+└── ...
+```
+
+`MAP.md` is the one-minute entry point: overall outcome, current stage, stage route and dependencies, shared boundaries, and links. Each stage document keeps the problem, constraints, design reasoning, implementation direction, and acceptance evidence in one continuous review surface. The skill does not generate stage directories or separate Requirements, Architecture, Implementation Plan, Verification, and Decisions files.
+
+Filesystem keys use lowercase English ASCII kebab-case; reader-facing titles use the project's main language. Project keys come from existing canonical identifiers, topic keys come from the aligned problem, and stage keys name observable outcomes. When no stable English key exists, the skill proposes one recommended key and waits for confirmation before creating it. Confirmed keys remain stable unless the engineering scope or outcome materially changes.
+
 ## Repository structure
 
 ```text
@@ -74,6 +91,8 @@ references/requirements-interview.md
 references/document-model.md
 references/research-for-decisions.md
 references/feishu-workspace.md
+assets/engineering-bundle/MAP.template.md
+assets/engineering-bundle/STAGE.template.md
 ```
 
 The core discovery workflow is self-contained. If a compatible interview or ideation skill is already installed, it may provide the conversational interview, but no upstream interview package is required.
@@ -91,15 +110,15 @@ Without a designated persistent workspace, diagrams remain session-local and the
 
 ## Feishu/Lark-native output
 
-When Feishu is the designated workspace, a multi-stage effort defaults to a short route page and one child page per engineering stage. The route page contains the current position, one stage diagram, the native child-page list, and shared boundaries. The diagram is created through `$mermaid-skill` and embedded as an editable native Mermaid whiteboard rather than a static image by default. The current stage carries the detail; future stages remain brief until evidence brings them closer. Feishu remains an optional presentation adapter; the core engineering model stays portable.
+When Feishu is the designated workspace, the same model becomes one Engineering Map root and one flat child page per outcome-based stage. The Map contains the current position, one stage diagram, the native child-page list, and shared boundaries. The current stage keeps its requirements, design, implementation direction, and verification evidence together; the skill does not create a document-type page tree. The diagram is created through `$mermaid-skill` and embedded as an editable native Mermaid whiteboard rather than a static image by default. Future stages remain brief until evidence brings them closer. Feishu remains an optional presentation adapter; the core engineering model stays portable.
 
 Example:
 
 ```text
-B1｜Navigation Whiteboxing Route
-├── 01｜Stage 1: Understand the Current System
-├── 02｜Stage 2: Consolidate Parameters and Outputs
-├── 03｜Stage 3: Validate Costmap Noise
+B1｜Navigation Whiteboxing Engineering Map
+├── 01｜Understand the Current System
+├── 02｜Consolidate Parameters and Outputs
+├── 03｜Validate Costmap Noise
 └── ...
 ```
 
@@ -153,8 +172,9 @@ MIT License. See [LICENSE](LICENSE).
 - 只有存在真实工程分叉时才比较两到三种方案；
 - 落文档前反向检查伪问题、范围膨胀、隐藏依赖和不可证伪目标；
 - 以“下一轮工程验证是否已经足够清晰”为完成条件；
-- 将 Requirements、Engineering Plan、Engineering Notes 作为内部语义车道，不强制映射成页面目录；
-- 多阶段工程默认采用“一张路线总览 + 每阶段一个子页”；
+- 将 Requirements、Engineering Plan、Engineering Notes 作为内部语义车道，不拆成分类文件；
+- 复杂多阶段工程默认采用“一张轻量工程 Map + 每个结果阶段一份扁平文档”；
+- 从正式项目标识和已对齐工程结果推导稳定命名，不由 AI 临时发挥；
 - 当前阶段写具体，下一阶段保留轮廓，远期阶段只写目的和进入条件；
 - 根页面默认只放一张工程演进图，阶段页只有在确实能减少解释时才增加图；一旦确定需要图，就自动调用 `$mermaid-skill`；
 - 新证据推翻旧判断时，直接修改当前需求和计划。
@@ -175,6 +195,22 @@ MIT License. See [LICENSE](LICENSE).
 
 没有指定 Workspace 时，Skill 只在对话中维护草稿，不会自行落盘。
 
+## 轻量工程 Bundle
+
+复杂多阶段工作在本地 Markdown Workspace 中默认采用扁平结构：
+
+```text
+<project-key>-<topic-key>-engineering-bundle/
+├── MAP.md
+├── 01-<outcome-key>.md
+├── 02-<outcome-key>.md
+└── ...
+```
+
+`MAP.md` 是一分钟入口，只保留整体结果、当前位置、阶段路线与依赖、共同边界和文档链接。每份阶段文档把问题、约束、设计推理、实现方向与验收证据放在同一条连续阅读路径中。Skill 不创建阶段子目录，也不拆出 Requirements、Architecture、Implementation Plan、Verification 或 Decisions 等分类文件。
+
+文件系统 key 使用小写英文 ASCII kebab-case，正文标题使用项目主要语言。项目 key 来自既有正式标识，主题 key 来自已对齐问题，阶段 key 描述可观察工程结果。没有稳定英文 key 时，Skill 先提出一个推荐名称并等待确认；确认后的 key 只有在工程范围或结果实质变化时才修改。
+
 ## Mermaid 自动组合
 
 核心需求发现流程可以独立运行；自动图表能力与 [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams) 组合。需求发现 Skill 负责判断图是否真正有用、图要表达什么以及放在哪里；只要确定需要图，就自动调用 `$mermaid-skill` 负责图型选择、Mermaid 源码、语法校验、预览和可读性检查。多阶段路线总览默认需要一张图，单阶段小任务不会为了形式被强制加图。
@@ -190,21 +226,21 @@ git clone https://github.com/Agents365-ai/creating-mermaid-diagrams.git \
 
 ## 设计边界
 
-三条语义车道稳定，但它们主要服务 AI 的判断，不要求读者先理解一套文档分类。近期阶段写具体，远期阶段保持粗略；需求和计划表达当前最佳认知，而不是不可修改的合同。
+三条语义车道稳定，但它们只服务 AI 的判断，不映射为文件分类。当前阶段用一份连续文档承载深度人机讨论，下一阶段保留方向，远期阶段保持骨架；需求和计划表达当前最佳认知，而不是不可修改的合同。
 
 ## 飞书原生输出
 
-指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面。单阶段工作保持单页；多阶段工作默认采用“路线总览 + 每阶段一个子页”：
+指定飞书时，Skill 会先盘点目标 Wiki 层级和相关页面。单阶段工作保持单页；多阶段工作采用“一张工程 Map + 每个结果阶段一个扁平子页”：
 
 ```text
-B1｜导航白盒化路线
-├── 01｜阶段一：看清当前系统
-├── 02｜阶段二：收拢参数与输出
-├── 03｜阶段三：验证 Costmap 离散噪声
+B1｜导航白盒化工程 Map
+├── 01｜看清当前系统
+├── 02｜收拢参数与输出
+├── 03｜验证 Costmap 离散噪声
 └── ...
 ```
 
-根页面只保留简短背景、当前位置、一张工程演进图、子页面列表和共同边界。工程演进图由 `$mermaid-skill` 生成和校验，并默认以飞书原生、可编辑的 Mermaid 画板嵌入，而不是上传静态图片。普通进展只更新当前阶段；新证据只更新受影响的阶段。Callout、表格、分栏和额外画板不再作为丰富度指标，只在真正降低阅读成本时使用。
+Map 只保留简短背景、当前位置、一张工程演进图、子页面列表和共同边界。当前阶段在一页内连续表达需求、设计、实现方向和验证，不创建分类子页。工程演进图由 `$mermaid-skill` 生成和校验，并默认以飞书原生、可编辑的 Mermaid 画板嵌入，而不是上传静态图片。普通进展只更新当前阶段；新证据只更新受影响的阶段。Callout、表格、分栏和额外画板只在真正降低阅读成本时使用。
 
 ## 多角度研究
 

@@ -1,122 +1,120 @@
-# Living Document Model
+# Lightweight Engineering Bundle
 
-Requirements, Engineering Plan, and Engineering Notes are stable semantic lanes for reasoning. They are not a required file or page structure. Present the work in the shape that gives an engineer the clearest next move with the least attention cost.
+Use this model when the user designates a persistent workspace. The bundle is a human-readable engineering conversation surface: one global map and one continuous document per outcome-based stage. Requirements, plans, and decision notes remain semantic responsibilities inside that writing, not a page taxonomy.
 
 ## Persistence Boundary
 
-A workspace is a user-designated persistent location such as a repository directory, document set, or knowledge base.
-
 - Without a designated workspace, keep a session-only draft and state that nothing was persisted.
-- In a designated workspace, locate existing equivalents before creating anything.
-- Preserve useful content, links, evidence, and the host medium's native structure.
-- Make the narrowest update that reflects the current understanding.
-- Do not duplicate a source of truth to satisfy a template.
+- In a designated workspace, locate an existing equivalent before creating anything. Preserve useful content, links, evidence, and the host medium's native structure.
+- Use a single page for a small effort with one near-term iteration, one audience, and a small evidence base.
+- Default to a bundle when the work spans multiple engineering outcomes or the current stage needs sustained requirements, architecture, implementation, and verification discussion.
+- Do not duplicate a source of truth merely to make the bundle look self-contained.
 
-## Choose the Reader's Axis
+## Local Markdown Shape
 
-Use a single page when there is one near-term iteration, one audience, and a small evidence base.
-
-For a real multi-stage effort, default to a progression-centered package:
+Use one flat directory:
 
 ```text
-<Project>｜<Topic> Route
-├── 01｜Stage 1: <plain-language outcome>
-├── 02｜Stage 2: <plain-language outcome>
-├── 03｜Stage 3: <plain-language outcome>
-└── ...
+<project-key>-<topic-key>-engineering-bundle/
+├── MAP.md
+├── 01-<outcome-key>.md
+├── 02-<outcome-key>.md
+├── 03-<outcome-key>.md
+└── assets/                    # only when real non-embedded artifacts exist
 ```
 
-The root establishes the whole route. Each child owns one engineering stage. This lets the current stage evolve without forcing readers or agents to revisit every future stage.
+Do not create `stages/`, stage directories, stage `README.md` files, or files named after internal categories such as `requirements.md`, `architecture.md`, `implementation-plan.md`, `verification.md`, or `decisions.md`. Those separations force a reviewer to reconstruct one design argument across several files.
 
-Use responsibility- or domain-centered pages instead only when stages are not the reader's main navigation model, for example when independent subsystems have different owners and update cadences. Do not default to pages named Requirements, System State, Reasoning, or Evidence Index merely because those concepts exist internally.
+Create `assets/` only for an image, raw attachment, or other real artifact that cannot reasonably be embedded or linked at its existing source. Name a local artifact `<stage-id>-<purpose-key>.<ext>`. Do not create an empty assets directory.
 
-## Root Page
+## Stable Naming Contract
 
-Keep the root deliberately thin:
+Bundle and stage names are derived, not improvised:
 
-- one or two short paragraphs explaining why the route exists and where work currently is;
-- one overview diagram showing the stages, their main outcomes, dependencies, and current position;
-- the native child-page list or direct links;
-- shared safety or authority boundaries stated once.
+- Bundle directory: `<project-key>-<topic-key>-engineering-bundle`.
+- Stage document: `NN-<outcome-key>.md`, with a two-digit stage number.
+- Appendix, only after explicit user approval: `appendix-<purpose-key>.md`.
 
-Do not add a status dashboard, evidence taxonomy, decision framework, or repeated summaries unless the user needs them. The root should be understandable in under a minute.
+Use lowercase English ASCII kebab-case for filesystem keys and the project's main language for reader-facing Markdown titles.
 
-## Stage Page
+Derive keys in this order:
 
-Use natural localized headings. A practical default is:
+1. `project-key` comes from the repository, product, or project's existing canonical identifier. Do not create a shorter alias for convenience.
+2. `topic-key` comes from the aligned engineering problem. Do not name the bundle after a proposed solution unless that solution has become the agreed scope.
+3. `outcome-key` names the observable engineering result of the stage, preferably with a concrete verb and object, such as `understand-current-system` or `define-target-architecture`.
 
-```markdown
-# What this stage needs to solve
+Reject weak keys such as `phase-1`, `misc`, `optimization`, `new-design`, or another label that does not say what becomes true. Do not add dates, status, authors, or content versions to filenames.
 
-# Work in this stage
+Reuse an existing confirmed key for the same project, topic, or stage. When no stable English key exists, propose one recommended key, state which agreed phrase it represents, and wait for confirmation before creating the bundle or new stage. Once confirmed, keep the key stable across later wording changes. Rename it only when the engineering scope or outcome materially changes, then update every affected link in the same bounded edit.
 
-# What completion looks like
+## MAP.md
 
-# Current notes
+Use [MAP.template.md](../assets/engineering-bundle/MAP.template.md) as a responsibility guide. The map should be understandable in under a minute and contain only:
 
-# Related material
-```
+- why the bundle exists and what overall success means;
+- the current stage, why it is current, and what it unlocks;
+- numbered stage outcomes, entry conditions, completion evidence, dependencies, and links;
+- shared constraints and confirmed decisions that affect more than one stage;
+- one route diagram when the multi-stage relationship warrants it.
 
-These are optional responsibilities, not mandatory labels. Omit empty sections. Prefer a few concrete sentences and bullets over a dense matrix.
+The map is not a dashboard or executive summary. Do not add owners, deadlines, issue state, evidence taxonomies, change logs, or repeated stage summaries. Keep one current stage unless the work is explicitly paused or all stages are complete.
 
-Requirements appear as the outcome and constraints of the affected stage. The plan appears as its work and completion evidence. Engineering Notes appear only where the reason changes a decision. Keep fact, assumption, preference, and unknown classification internally; surface it explicitly only when the distinction prevents a mistake.
+The route diagram and the linked stage list express the same model. Update both when the current stage, stage order, dependency, or boundary changes. Do not redraw the diagram for prose-only edits.
 
-## Detail Gradient
+## Stage Document
 
-Information density must decrease with engineering distance:
+Use [STAGE.template.md](../assets/engineering-bundle/STAGE.template.md) as a responsibility guide, not a form to fill. A stage document should let a person follow one continuous engineering argument from the problem to the proposed implementation and its verification.
 
-- **Current stage:** concrete problem, five to seven meaningful work items when needed, four to five observable completion conditions, current constraints, and relevant sources.
-- **Next stage:** goal, entry condition, likely outputs, and completion condition. Do not pre-write a detailed implementation backlog.
-- **Later stages:** purpose, dependency or entry condition, and completion boundary only. Expand them when evidence brings them closer.
+For the current stage, preserve the content needed to understand:
 
-The numbers are ceilings and guides, not a requirement to fill space. A shorter page is better when it is sufficient.
+- the actual problem, impact, and intended outcome;
+- confirmed facts, requirements, constraints, and necessary assumptions;
+- how the design developed and which tradeoffs changed it;
+- the current architecture or implementation direction and affected scope;
+- evidence that accepts the stage and an observed result that would reject the direction;
+- unresolved questions that still require human judgment;
+- source, evidence, and research links that affect the current decision.
 
-## Writing Voice
+These are content responsibilities, not mandatory headings. Combine them into natural project-language prose, rename or merge headings, and omit empty sections. Do not label every paragraph as fact, assumption, preference, unknown, requirement, or decision.
 
-Write as an engineer maintaining a working document:
+Keep the next stage directional: goal, entry condition, likely result, and completion boundary. Keep later stages skeletal: purpose, dependency, and completion boundary only. Expand them when evidence brings them closer.
 
-- use one language and familiar project terms;
-- prefer direct statements such as `先把实际参数覆盖关系查清楚`;
-- prefer verbs and concrete objects in titles;
-- avoid bilingual synonym titles, slogans, ceremonial summaries, and repeated method explanations;
-- do not use internal framework labels such as `Current Conclusion`, `Evidence Objective`, `Decision Impact`, or `Fact / Assumption / Preference / Unknown` as routine visible headings;
-- avoid emoji by default;
-- use a callout, table, or diagram only when it makes the content easier to scan.
+Do not split a stage merely because it becomes long. First remove obsolete process notes, duplicated evidence, and material that belongs at its original source. Only when the document can no longer be reviewed effectively in one pass may the agent recommend one purpose-specific appendix. Create it only after the user explicitly agrees; never introduce a nested stage tree.
 
-Do not optimize for the amount of visible structure. Optimize for how quickly a reader knows what matters now.
+## Resume and Joint Editing
 
-## Visual Model
+On every return to an existing bundle:
 
-For a multi-stage package, create one overview diagram on the root by default. It should show:
+1. Read `MAP.md` first.
+2. Resolve its current-stage link and read that stage document.
+3. Load only linked material that can change the current decision.
+4. Inspect relevant current-system evidence before treating a factual edit as verified.
+5. Continue from the current gap rather than restarting discovery.
 
-- stage order and dependencies;
-- the problem each stage resolves;
-- its main output;
-- the current stage.
+Direct human edits are part of the shared current model. Preserve changed decisions, priorities, and preferences. Check factual, evidentiary, and technical claims against available evidence. If a manual edit conflicts with another constraint, stage boundary, or acceptance condition, state the conflict and resolve the highest-impact decision instead of silently choosing one version or restoring old prose.
 
-Do not add stage-local diagrams merely for visual variety. Add one only when a real architecture, state, sequence, comparison, or failure relationship would otherwise require substantial prose. There is no diagram quota and no rich-block density target.
+## Narrow Update Rule
 
-## Research and Evidence
+- Ordinary implementation, simulation, test, field, or research evidence updates only the affected stage.
+- Update the map only when the current marker, stage order, dependency, shared constraint, key decision, or document link changes.
+- Leave unrelated stages untouched.
+- When work advances, expand the newly current stage and compress the completed stage to its durable conclusion, decisive tradeoffs, and valid evidence.
+- Remove obsolete current statements rather than leaving contradictory versions or adding a chronological change ledger.
+- Use Git or the host workspace's revision history for change history. Do not create a parallel change-request or task system.
 
-Keep detailed source qualification in the reasoning process. In the living package:
+## Build Handoff Readiness
 
-- place a concise takeaway in the stage it affects;
-- state the applicability limit when it matters;
-- link the internal document or external source nearby;
-- avoid a separate evidence page unless the source collection has an independent audience or maintenance need.
+The current stage is ready to hand to a separate BUILD workflow only when one document can explain:
 
-Public reports broaden the decision space but do not prove current-system behavior.
+- the implementation outcome and affected scope;
+- the selected design and consequential tradeoffs;
+- constraints and assumptions the implementer must preserve;
+- evidence that will accept the implementation;
+- a result that would reject the current direction;
+- open questions that still block or could materially change implementation.
 
-## Updating After Evidence
+If a consequential item is missing, continue discovery or frame the precise research, prototype, decision, or outside task that will close it. This skill does not perform the build.
 
-When new evidence arrives:
+## Other Workspace Adapters
 
-1. verify what it actually demonstrates and under which conditions;
-2. update the affected stage's needed outcome, work, or completion condition;
-3. update the root only if the current stage, ordering, dependency, or boundary changed;
-4. remove obsolete current statements rather than leaving contradictory versions;
-5. leave unrelated stages untouched.
-
-When the current stage changes, expand the newly current page and reduce obsolete operational detail in the completed stage to a compact record. Do not rewrite all stages for a local change.
-
-Do not create change-request identifiers or a parallel project tracker. Respect an external traceability policy when one already exists, but keep it outside this skill's core model.
+Preserve the same reader model in Feishu, Notion, or another document system: one lightweight map and one flat page per outcome-based stage. Use native links and editable diagrams, but do not recreate the removed document-type hierarchy. Follow the adapter's mutation and readback rules.

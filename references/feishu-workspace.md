@@ -38,18 +38,17 @@ Do not copy a nearby source page. Cite it and keep only the implication needed f
 
 ## Default Multi-Stage Wiki Shape
 
-For a multi-stage engineering route, use:
+Map the lightweight bundle to one root page and one flat child page per outcome-based stage:
 
 ```text
-<Project>｜<Topic>路线
-├── 01｜阶段一：<自然、动词化的目标>
-├── 02｜阶段二：<自然、动词化的目标>
-├── 03｜阶段三：<自然、动词化的目标>
-├── ...
-└── 99｜旧结构归档
+<Project>｜<Topic>工程 Map
+├── 01｜<自然、结果导向的目标>
+├── 02｜<自然、结果导向的目标>
+├── 03｜<自然、结果导向的目标>
+└── ...
 ```
 
-Use the workspace language consistently. Avoid bilingual titles. Use dates only for immutable snapshots or periodic reports.
+Use the workspace language consistently. Avoid bilingual titles and vague names such as `阶段一` or `优化`. If a paired local Markdown bundle exists, preserve the same stage numbers and outcomes. Use dates only for immutable snapshots or periodic reports.
 
 Keep the root minimal:
 
@@ -58,21 +57,23 @@ Keep the root minimal:
 - `<sub-page-list>` or direct stage links;
 - shared safety and authority boundaries stated once.
 
-Do not add a status table, evidence index, multiple reading routes, or framework explanation by default.
+Do not add a status table, evidence index, multiple reading routes, framework explanation, or document-type page hierarchy by default.
 
 ## Stage Detail
 
-For the current stage, use short localized sections for:
+The current stage should read as one continuous engineering argument from the problem to the design and its verification. Preserve enough content to understand:
 
-- what needs to be solved;
-- the work in this stage;
-- observable completion conditions;
-- current notes that change the work;
-- related internal or external material.
+- what needs to be solved and why;
+- confirmed requirements, constraints, and assumptions;
+- the design reasoning, implementation direction, and consequential tradeoffs;
+- observable acceptance evidence and a result that would reject the direction;
+- unresolved decisions and relevant source or evidence links.
+
+These are content responsibilities, not a fixed set of headings. Merge them into natural project-language prose and omit empty sections. Do not create separate Requirements, Architecture, Implementation Plan, Verification, or Decisions pages.
 
 For the next stage, keep only the goal, entry condition, likely output, and completion boundary. For later stages, keep a short purpose plus entry and completion conditions. Do not make distant pages look implementation-ready.
 
-When a stage accumulates substantial source material, link the existing documents first. Create a nested source page under that stage only when it has a real independent maintenance need; do not recreate a root-level evidence taxonomy.
+When a stage accumulates substantial source material, remove obsolete process notes and link the existing documents first. Do not create a nested source page unless the stage can no longer be reviewed effectively in one pass and the user explicitly approves the split. Never recreate a document-type or root-level evidence taxonomy.
 
 ## Feishu Writing Style
 
@@ -112,7 +113,7 @@ The default update unit is one stage page:
 
 - ordinary progress updates the current stage only;
 - new research updates the stage whose decision it affects;
-- the root changes only when the current marker, order, dependency, or boundary changes;
+- the Map changes only when the current marker, order, dependency, shared boundary, key decision, or page link changes;
 - other stages remain untouched;
 - when work advances, expand the new current stage rather than pre-filling all later stages.
 
