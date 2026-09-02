@@ -1,15 +1,16 @@
 ---
 name: engineering-requirements-discovery
-description: Clarify ambiguous or evolving engineering goals against the real system and relevant external evidence, then maintain a lightweight local engineering map and outcome-based stage documents for the next safe iteration. Use for software, robotics, infrastructure, or other complex engineering work when the problem, constraints, success criteria, evidence base, or next iteration are not yet clear. Do not use to implement an already-settled specification, administer project trackers, publish externally, or merely reformat existing documentation.
+description: Clarify ambiguous or evolving engineering goals, maintain a lightweight local engineering bundle, and interpret detailed engineering plans as system behavior and observable outcomes for human decisions. Use for software, robotics, infrastructure, or other complex engineering work when requirements are unsettled, a staged plan must be maintained, or a technical owner needs to understand what an existing plan will actually change. Do not use to implement an already-settled specification, administer project trackers, publish externally, or perform a general code or architecture review.
 ---
 
 # Engineering Requirements Discovery
 
-Turn current evidence and a messy engineering goal into the smallest safe next iteration. Treat the engineering map, requirements, and plan as the current best model, not as frozen commitments.
+Turn current evidence and a messy engineering goal into the smallest safe next iteration, keep its technical plan coherent, then explain what that plan means for the real system without destroying its cognitive map. Treat the engineering map, requirements, and plan as the current best model, not as frozen commitments.
 
 ## Boundaries
 
 - Own `DISCUSS -> DOCUMENT -> PLAN`.
+- Own read-only interpretation of an existing engineering plan when the user needs a Human Decision View rather than a redesign.
 - Keep `BUILD` outside this skill. Do not implement code, run experiments, operate hardware, or begin deployment under this skill alone.
 - Do not manage issues, owners, deadlines, branches, pull requests, or status synchronization.
 - Persist discovery documents only in a user-designated local workspace. Without one, stay in conversation.
@@ -17,9 +18,18 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 
 ## Load References as Needed
 
-- Always read [requirements-interview.md](references/requirements-interview.md).
+- Read [requirements-interview.md](references/requirements-interview.md) for discovery, bundle maintenance prompted by new evidence, or when plan interpretation exposes a goal mismatch. A pure interpretation request does not load the interview workflow.
 - Read [research-for-decisions.md](references/research-for-decisions.md) when public technical knowledge, similar incidents, alternatives, or counterexamples could change the next iteration.
 - Read [document-model.md](references/document-model.md) whenever persistent documents are requested or already exist. Use its naming and bundle rules for a local Markdown workspace.
+- Read [plan-interpretation.md](references/plan-interpretation.md) when the user wants to understand, explain, judge, or align an existing engineering plan, and after this skill creates or materially updates a technical plan.
+
+## Operating Modes
+
+- **Discover and plan:** use the Route below when the problem, desired outcome, scope, tradeoffs, or acceptance evidence are still unsettled.
+- **Maintain a bundle:** resume from `MAP.md` and the current stage when new evidence or a changed decision must update the technical model.
+- **Interpret a plan:** when a detailed engineering plan already exists and the user's need is to understand its effects, preserve the plan's semantic anchors and produce a conversation-only Human Decision View. Do not restart requirements discovery unless the interpretation exposes a material mismatch between the plan and the user's actual problem.
+
+After creating or materially updating a technical plan, automatically finish with the interpretation mode in the conversation. The technical bundle remains the implementation-grade source; the Human Decision View is a reading and decision layer, not another bundle artifact.
 
 ## Route
 
@@ -38,6 +48,24 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 13. Use a natural engineering-work-document voice. Prefer direct sentences and concrete nouns; do not turn internal labels such as fact, assumption, preference, unknown, decision impact, or evidence type into repetitive visible headings.
 14. Use one overview diagram in the map for a multi-stage route by default. Embed diagrams in the relevant local Markdown when practical. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota. Whenever a diagram is selected, follow Diagram Composition below.
 15. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the map only when the current stage, stage order, dependency, shared boundary, or key decision changes; record the reasoning without creating a change-request system.
+
+## Engineering Plan Interpretation
+
+Do not summarize a detailed plan by inventing a new information architecture. Preserve the order and recognizable identity of its major problem blocks, proposal numbers, causal dependencies, status boundaries, safety constraints, architecture responsibility changes, acceptance evidence, rejection conditions, and later stages.
+
+For each important semantic block, translate only as far as needed to make this chain clear:
+
+```text
+technical mechanism -> system behavior -> observable effect -> problem coverage -> acceptance result
+```
+
+Lead with what a person will observe, then retain the minimum technical term needed to return to the source, such as `State Lattice`, `costmap generation`, `MPPI`, or `Safety Gate`. Allocate explanation by decision value rather than source length. Compress ordinary functions, file lists, parameters, formulas, log fields, and corner cases unless they change behavior, ownership, safety, compatibility, or a consequential tradeoff.
+
+Never turn an existing capability into a new change or a planned capability into a completed one. Use the source plan's claims first, then read only directly referenced and readily available evidence that can verify a consequential state. Clearly distinguish source-declared, independently verified, and unverified status. Do not expand interpretation into a full audit.
+
+State what a proposal directly solves, may improve, and does not solve whenever those boundaries affect the decision. If the plan targets a different mechanism from the user's observed problem, explain the mismatch and return to discovery instead of silently redesigning the plan.
+
+Keep the Human Decision View in the conversation by default. Do not add it to `MAP.md`, stage documents, templates, or bundle files. If the user asks to persist the interpretation, require a user-designated destination outside the technical bundle.
 
 ## Proportionate Verification
 
@@ -93,13 +121,15 @@ If compatibility is uncertain, use the bundled interview reference.
 
 ## Handoff
 
-Finish with a compact statement of:
+After discovery or bundle maintenance, finish with a compact statement of:
 
 - the current problem and success condition;
 - the next iteration and its acceptance evidence;
 - assumptions being carried;
 - open questions that could change the plan;
 - where the map and current stage document were updated, or that they remain session-only.
+
+When a technical plan was created or updated, follow that handoff with the conversation-only Human Decision View defined in [plan-interpretation.md](references/plan-interpretation.md). For a pure interpretation request, provide the Human Decision View directly without repeating the discovery handoff. Start with the overall system outcome and current status, preserve the source plan's major sequence, and end with the next observable test, rejection signals, and source anchors for deeper reading.
 
 If the user wants the reviewed bundle published externally, state that the local bundle must first be explicitly confirmed as complete, then route publication separately. Do not publish or synchronize it under this skill.
 

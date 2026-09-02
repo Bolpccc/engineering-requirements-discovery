@@ -1,6 +1,6 @@
 # Engineering Requirements Discovery
 
-An Agent Skill for turning ambiguous, evolving engineering goals into living requirements and a staged, evidence-driven plan.
+An Agent Skill for turning ambiguous, evolving engineering goals into living requirements and a staged, evidence-driven plan, then translating detailed technical plans into system behavior and observable outcomes for human decisions.
 
 It is designed for software, robotics, infrastructure, and other complex engineering work where the real requirement emerges through inspection, implementation, simulation, testing, or field evidence.
 
@@ -37,8 +37,18 @@ The skill:
 - makes the current stage concrete, the next stage directional, and later stages deliberately brief;
 - uses one route diagram by default, adds a stage-local diagram only when it reduces real explanation, and automatically invokes `$mermaid-skill` whenever a diagram is warranted;
 - revises the current model directly when new evidence changes the plan.
+- interprets an existing or newly produced engineering plan without destroying its problem order, causal structure, status boundaries, or technical anchors;
+- produces a conversation-only Human Decision View that explains system behavior, problem coverage, and acceptance observations while keeping the technical bundle unchanged.
 
-It does not implement code, run experiments, operate hardware, manage project trackers, or publish and synchronize external document systems.
+It does not implement code, run experiments, operate hardware, manage project trackers, perform a general architecture or code review, or publish and synchronize external document systems.
+
+## Engineering plan interpretation
+
+When the input is already a detailed engineering plan, the skill preserves its major problem sequence and translates each important block from technical mechanism into system behavior, observable effect, problem coverage, and acceptance result. It distinguishes existing, implemented, planned, disabled, offline-validated, simulation-validated, and hardware-validated states instead of flattening them into a generic summary.
+
+After the skill creates or materially updates a plan, it automatically returns this Human Decision View in the conversation. It does not add an interpretation file or simplified layer to the Engineering Bundle. If a persistent interpretation is requested, the user must designate a separate location outside the technical bundle.
+
+Status is checked proportionately: the plan remains the source of its claims, directly referenced and readily available evidence may independently confirm consequential states, and the skill says which claims were or were not independently verified. It does not turn interpretation into a full audit or silently redesign a plan that appears misaligned with the observed problem.
 
 ## Install
 
@@ -91,6 +101,7 @@ agents/openai.yaml
 references/requirements-interview.md
 references/document-model.md
 references/research-for-decisions.md
+references/plan-interpretation.md
 assets/engineering-bundle/MAP.template.md
 assets/engineering-bundle/STAGE.template.md
 ```
@@ -133,7 +144,7 @@ MIT License. See [LICENSE](LICENSE).
 
 # 工程化需求挖掘
 
-这是一个面向软件、机器人、基础设施等复杂工程项目的 Agent Skill，用来把模糊且持续变化的工程目标转化为活的需求、分阶段计划和决策依据。
+这是一个面向软件、机器人、基础设施等复杂工程项目的 Agent Skill，用来把模糊且持续变化的工程目标转化为活的需求、分阶段计划和决策依据，并把详细技术计划对译成技术负责人可以快速判断的系统行为与可观察结果。
 
 ## 它负责什么
 
@@ -167,8 +178,16 @@ MIT License. See [LICENSE](LICENSE).
 - 当前阶段写具体，下一阶段保留轮廓，远期阶段只写目的和进入条件；
 - 根页面默认只放一张工程演进图，阶段页只有在确实能减少解释时才增加图；一旦确定需要图，就自动调用 `$mermaid-skill`；
 - 新证据推翻旧判断时，直接修改当前需求和计划。
+- 在不破坏原计划问题顺序、因果结构、研发状态和技术锚点的前提下解释既有或新生成的工程计划；
+- 在对话中给出系统行为、问题覆盖和验收观察的 Human Decision View，同时保持技术 Bundle 不变。
 
-它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间，也不发布或同步外部文档系统。
+它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间、执行通用代码或架构评审，也不发布或同步外部文档系统。
+
+## 工程计划对译
+
+当输入已经是一份详细工程计划时，Skill 保留其主要问题顺序，把每个关键技术块从实现机制对译为系统行为、可观察效果、问题覆盖和验收结果。它严格区分既有能力、已实施、未验证、离线验证、仿真或非运动闭环验证、硬件验证、计划中、禁用和否决，不把不同研发状态压成一句“已经完成”。
+
+Skill 每次生成或实质更新技术计划后，会自动在对话中输出 Human Decision View，但不会向 Engineering Bundle 增加解释文件或简化章节。需要持久保存解释时，使用者必须指定 Bundle 之外的独立位置。
 
 ## 使用方式
 
