@@ -1,85 +1,30 @@
-# Engineering Requirements Discovery
+# Engineering Design
 
-An Agent Skill for turning ambiguous, evolving engineering goals into living requirements and a staged, evidence-driven plan, then translating detailed technical plans into system behavior and observable outcomes for human decisions.
-
-It is designed for software, robotics, infrastructure, and other complex engineering work where the real requirement emerges through inspection, implementation, simulation, testing, or field evidence.
-
-## What it does
+An Agent Skill for turning a human-language engineering need into either a compact implementation brief or a confirmed technical Engineering Bundle.
 
 ```text
-DISCUSS -> DOCUMENT -> PLAN
-   ^                     |
-   |--- new evidence ----|
-
-BUILD happens outside this skill.
+Human-language discussion
+          |
+          v
+Aligned behavior and boundaries
+          |
+          +-- small change --> Direct implementation brief
+          |
+          `-- durable design --> Engineering Bundle
+                                  + Human-readable Mapping
 ```
 
-The skill:
+The conversation stays focused on system behavior, observable outcomes, boundaries, and responsibility. The skill performs the technical inspection and reasoning needed to protect architecture, safety, compatibility, and acceptance without asking the user to review every function, parameter, or corner case.
 
-- reads the existing engineering context before asking discoverable questions;
-- extracts answers from brain dumps instead of restarting with a questionnaire;
-- surfaces silent assumptions and separates a proposed solution from the outcome behind it before asking the first question;
-- anchors each question in the user's words or engineering evidence, states a current judgment, and advances one consequential unknown;
-- challenges vague demand, contradictions, weak premises, and unfalsifiable goals directly;
-- uses concrete incidents and counterfactuals to uncover needs, and recommended options to resolve engineering tradeoffs;
-- separates facts, assumptions, preferences, and unknowns;
-- researches official mechanisms, similar incidents, alternatives, and counterexamples when they can change the decision;
-- advances one high-impact uncertainty at a time;
-- changes method when direct questions stall, using a small strawman or a precisely framed research, prototype, decision, or task gap;
-- compares two or three approaches only when a real engineering fork exists;
-- scales verification to causal uncertainty and consequence, using direct reasoning and targeted regression when the mechanism is clear instead of rebuilding full A/B baselines for minor real-world drift;
-- pressure-tests the problem, scope, dependencies, and acceptance evidence before documenting;
-- defines the smallest safe next engineering iteration;
-- maintains Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes without turning them into separate files;
-- organizes a complex multi-stage effort as one lightweight engineering map plus one flat, continuous document per outcome-based stage;
-- derives stable bundle and stage names from canonical project identifiers and aligned engineering outcomes instead of improvising them;
-- keeps a small single-stage effort on one page instead of forcing a hierarchy;
-- makes the current stage concrete, the next stage directional, and later stages deliberately brief;
-- uses one route diagram by default, adds a stage-local diagram only when it reduces real explanation, and automatically invokes `$mermaid-skill` whenever a diagram is warranted;
-- revises the current model directly when new evidence changes the plan.
-- interprets an existing or newly produced engineering plan without destroying its problem order, causal structure, status boundaries, or technical anchors;
-- produces a conversation-only Human Decision View that explains system behavior, problem coverage, and acceptance observations while keeping the technical bundle unchanged.
+## Two routes
 
-It does not implement code, run experiments, operate hardware, manage project trackers, perform a general architecture or code review, or publish and synchronize external document systems.
+### Direct implementation
 
-## Engineering plan interpretation
+For one small, bounded outcome, the skill returns a concise brief covering the goal, what must be preserved, forbidden shortcuts, acceptance, and rejection signals. It creates no persistent document and does not invoke `engineering-build`.
 
-When the input is already a detailed engineering plan, the skill preserves its major problem sequence and translates each important block from technical mechanism into system behavior, observable effect, problem coverage, and acceptance result. It distinguishes existing, implemented, planned, disabled, offline-validated, simulation-validated, and hardware-validated states instead of flattening them into a generic summary.
+### Engineering Bundle
 
-After the skill creates or materially updates a plan, it automatically returns this Human Decision View in the conversation. It does not add an interpretation file or simplified layer to the Engineering Bundle. If a persistent interpretation is requested, the user must designate a separate location outside the technical bundle.
-
-Status is checked proportionately: the plan remains the source of its claims, directly referenced and readily available evidence may independently confirm consequential states, and the skill says which claims were or were not independently verified. It does not turn interpretation into a full audit or silently redesign a plan that appears misaligned with the observed problem.
-
-## Install
-
-For Codex:
-
-```bash
-git clone https://github.com/Bolpccc/engineering-requirements-discovery.git \
-  ~/.codex/skills/engineering-requirements-discovery
-```
-
-For another Agent Skills compatible runtime, clone or copy this repository into that runtime's skills directory.
-
-## Use
-
-Explicit invocation:
-
-```text
-Use $engineering-requirements-discovery to clarify this engineering goal and define the next evidence-driven iteration.
-```
-
-You can provide a short goal, a long brain dump, existing documents, or new test evidence. The skill does not wait for a clean brief: it states what it currently believes, exposes materially different interpretations, and asks one question that can change the direction. If you want persistent documents, name a local workspace explicitly:
-
-```text
-Use $engineering-requirements-discovery. Maintain the living documents in this repository under docs/discovery/.
-```
-
-Without a designated local workspace, the skill stays in conversation and does not write files.
-
-## Lightweight Engineering Bundle
-
-For a complex multi-stage effort in a local Markdown workspace, the default persistent shape is deliberately flat:
+For multi-stage or consequential work, the skill maintains a local, technical Bundle:
 
 ```text
 <project-key>-<topic-key>-engineering-bundle/
@@ -89,9 +34,32 @@ For a complex multi-stage effort in a local Markdown workspace, the default pers
 └── ...
 ```
 
-`MAP.md` is the one-minute entry point: overall outcome, current stage, stage route and dependencies, shared boundaries, and links. Each stage document keeps the problem, constraints, design reasoning, implementation direction, and acceptance evidence in one continuous review surface. The skill does not generate stage directories or separate Requirements, Architecture, Implementation Plan, Verification, and Decisions files.
+After creating or revising the Bundle, the skill presents a conversation-only Human-readable Mapping in the same semantic order. The user confirms system behavior and boundaries without losing the ability to return to the technical source.
 
-Filesystem keys use lowercase English ASCII kebab-case; reader-facing titles use the project's main language. Project keys come from existing canonical identifiers, topic keys come from the aligned problem, and stage keys name observable outcomes. When no stable English key exists, the skill proposes one recommended key and waits for confirmation before creating it. Confirmed keys remain stable unless the engineering scope or outcome materially changes.
+A confirmed Bundle is the only stable interface to [`engineering-build`](https://github.com/Bolpccc/engineering-build). The Build skill implements it, updates evidence-backed status, and returns design-invalidating discoveries here for a new decision.
+
+## Boundaries
+
+This skill does not implement code, run experiments, operate hardware, deploy, manage project trackers, or publish external documents. It creates persistent files only when the user selects the Bundle route.
+
+## Install
+
+```bash
+git clone https://github.com/Bolpccc/engineering-design.git \
+  ~/.codex/skills/engineering-design
+```
+
+## Use
+
+```text
+Use $engineering-design to clarify this behavior change and help me choose a direct implementation brief or an Engineering Bundle.
+```
+
+For an existing Bundle:
+
+```text
+Use $engineering-design to review and revise the design in /path/to/example-engineering-bundle/.
+```
 
 ## Repository structure
 
@@ -106,142 +74,17 @@ assets/engineering-bundle/MAP.template.md
 assets/engineering-bundle/STAGE.template.md
 ```
 
-The core discovery workflow is self-contained. If a compatible interview or ideation skill is already installed, it may provide the conversational interview, but no upstream interview package is required.
+Diagram composition uses [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams) when a diagram materially improves the Bundle. External publication remains a separate, explicitly authorized workflow.
 
-Diagram automation composes with [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams). The discovery skill decides whether a diagram is useful and what engineering meaning it must carry; whenever one is warranted, it automatically invokes `$mermaid-skill` for diagram selection, Mermaid source, validation, preview, and readability review. A multi-stage route overview warrants one by default; small single-stage work does not gain a diagram quota.
+## 中文说明
 
-Install the companion skill when you want this automatic diagram workflow:
+`engineering-design` 负责把“我想让系统怎样表现”变成可确认的工程定义。讨论阶段优先使用人能直接判断的行为和结果语言；技术分析、架构约束、安全边界和验收条件由 Skill 在后台完成并保存在必要的技术 Bundle 中。
 
-```bash
-git clone https://github.com/Agents365-ai/creating-mermaid-diagrams.git \
-  ~/.codex/skills/mermaid-skill
-```
+需求收敛后有两条路：
 
-Without a designated local workspace, diagrams remain session-local and the workflow does not persist files or send source to Kroki. If `$mermaid-skill` is unavailable, the discovery skill returns the diagram intent and draft source without claiming that it was validated or rendered; it does not install the companion automatically.
+- 小而明确的修改：只输出一次性实施要求，不生成文档。
+- 中大型或需要持续修订的工作：生成 Engineering Bundle，并按相同结构给出人话映射，确认后交给 `engineering-build`。
 
-## External publication boundary
-
-The skill creates and revises the local bundle first. Publishing to any external document system is a separate workflow and requires the user to review the local result and explicitly confirm that it is complete and ready to publish. Permission to edit or finish the local bundle is not publication permission. A later local revision requires a new publication confirmation.
-
-## Decision-driven research
-
-For an open question that can change the next iteration, the skill searches along several angles: authoritative behavior, real-world failure reports, alternatives, counterexamples, and environment fit. It records what each source actually supports and keeps community experience separate from verified current-system facts.
-
-## Acknowledgements
-
-The interview design was informed by the context-first, one-question-at-a-time, assumption-surfacing, and evidence-readiness approaches in:
-
-- [obra/superpowers — brainstorming](https://github.com/obra/superpowers/blob/main/skills/brainstorming/SKILL.md)
-- [nicknisi/ideation — interview engine](https://github.com/nicknisi/ideation/blob/main/references/interview-engine.md)
-
-This repository implements a smaller, independent engineering-discovery workflow and does not copy or depend on either complete system.
-
-## License
+Bundle 是两个 Skill 之间唯一稳定接口。实施发现设计假设不成立时，返回本 Skill 修订，而不是在 Build 阶段偷偷改变系统意图。
 
 MIT License. See [LICENSE](LICENSE).
-
----
-
-# 工程化需求挖掘
-
-这是一个面向软件、机器人、基础设施等复杂工程项目的 Agent Skill，用来把模糊且持续变化的工程目标转化为活的需求、分阶段计划和决策依据，并把详细技术计划对译成技术负责人可以快速判断的系统行为与可观察结果。
-
-## 它负责什么
-
-它只负责：
-
-```text
-讨论需求 -> 更新当前认知 -> 形成下一阶段计划
-```
-
-开发、实验、真机操作和部署不属于本 Skill。
-
-核心行为包括：
-
-- 先理解已有代码、架构、约束和证据，再询问无法从环境获得的信息；
-- 从长段想法中提取已经回答的内容，不重新发一份需求问卷；
-- 第一问之前主动揭示可能被默认的不同解读，并把用户提出的方案与真正需要的结果分开；
-- 每个问题都引用用户原话或工程证据，先给出当前判断，再推进一个真正影响方向的未知；
-- 直接指出模糊需求、矛盾、弱前提和无法验收的目标；
-- 用具体事件与反事实挖掘真实需要，用带推荐的选项解决工程取舍；
-- 区分事实、假设、偏好和未知；
-- 针对真正影响决策的缺口，主动搜索官方机制、类似故障、社区实践、替代方案和反例；
-- 默认每轮只推进一个最关键的不确定性；
-- 直接追问不再收敛时，改用最小 strawman，或形成可恢复的研究、原型、决策和任务缺口；
-- 只有存在真实工程分叉时才比较两到三种方案；
-- 按因果不确定性和后果选择验证力度；机制已经明确时采用原理判断与聚焦回归，不因真实环境的细微漂移机械重建完整 A/B 基线；
-- 落文档前反向检查伪问题、范围膨胀、隐藏依赖和不可证伪目标；
-- 以“下一轮工程验证是否已经足够清晰”为完成条件；
-- 将 Requirements、Engineering Plan、Engineering Notes 作为内部语义车道，不拆成分类文件；
-- 复杂多阶段工程默认采用“一张轻量工程 Map + 每个结果阶段一份扁平文档”；
-- 从正式项目标识和已对齐工程结果推导稳定命名，不由 AI 临时发挥；
-- 当前阶段写具体，下一阶段保留轮廓，远期阶段只写目的和进入条件；
-- 根页面默认只放一张工程演进图，阶段页只有在确实能减少解释时才增加图；一旦确定需要图，就自动调用 `$mermaid-skill`；
-- 新证据推翻旧判断时，直接修改当前需求和计划。
-- 在不破坏原计划问题顺序、因果结构、研发状态和技术锚点的前提下解释既有或新生成的工程计划；
-- 在对话中给出系统行为、问题覆盖和验收观察的 Human Decision View，同时保持技术 Bundle 不变。
-
-它不负责写代码、运行实验、操作机器人、管理 Issue/负责人/截止时间、执行通用代码或架构评审，也不发布或同步外部文档系统。
-
-## 工程计划对译
-
-当输入已经是一份详细工程计划时，Skill 保留其主要问题顺序，把每个关键技术块从实现机制对译为系统行为、可观察效果、问题覆盖和验收结果。它严格区分既有能力、已实施、未验证、离线验证、仿真或非运动闭环验证、硬件验证、计划中、禁用和否决，不把不同研发状态压成一句“已经完成”。
-
-Skill 每次生成或实质更新技术计划后，会自动在对话中输出 Human Decision View，但不会向 Engineering Bundle 增加解释文件或简化章节。需要持久保存解释时，使用者必须指定 Bundle 之外的独立位置。
-
-## 使用方式
-
-```text
-使用 $engineering-requirements-discovery，帮我把这次导航框架重构的目标问清楚，并形成下一轮可验证的工程阶段。
-```
-
-如果需要持久化，请明确指定本地位置：
-
-```text
-使用 $engineering-requirements-discovery，并把活文档维护在当前仓库的 docs/discovery/。
-```
-
-没有指定本地 Workspace 时，Skill 只在对话中维护草稿，不会自行落盘。
-
-## 轻量工程 Bundle
-
-复杂多阶段工作在本地 Markdown Workspace 中默认采用扁平结构：
-
-```text
-<project-key>-<topic-key>-engineering-bundle/
-├── MAP.md
-├── 01-<outcome-key>.md
-├── 02-<outcome-key>.md
-└── ...
-```
-
-`MAP.md` 是一分钟入口，只保留整体结果、当前位置、阶段路线与依赖、共同边界和文档链接。每份阶段文档把问题、约束、设计推理、实现方向与验收证据放在同一条连续阅读路径中。Skill 不创建阶段子目录，也不拆出 Requirements、Architecture、Implementation Plan、Verification 或 Decisions 等分类文件。
-
-文件系统 key 使用小写英文 ASCII kebab-case，正文标题使用项目主要语言。项目 key 来自既有正式标识，主题 key 来自已对齐问题，阶段 key 描述可观察工程结果。没有稳定英文 key 时，Skill 先提出一个推荐名称并等待确认；确认后的 key 只有在工程范围或结果实质变化时才修改。
-
-## Mermaid 自动组合
-
-核心需求发现流程可以独立运行；自动图表能力与 [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams) 组合。需求发现 Skill 负责判断图是否真正有用、图要表达什么以及放在哪里；只要确定需要图，就自动调用 `$mermaid-skill` 负责图型选择、Mermaid 源码、语法校验、预览和可读性检查。多阶段路线总览默认需要一张图，单阶段小任务不会为了形式被强制加图。
-
-配套 Skill 安装方式：
-
-```bash
-git clone https://github.com/Agents365-ai/creating-mermaid-diagrams.git \
-  ~/.codex/skills/mermaid-skill
-```
-
-未指定本地 Workspace 时，图只保留在会话中，不写持久文件，也不把源码发送给 Kroki。若环境中没有 `$mermaid-skill`，本 Skill 会保留图的意图和草稿源码，明确说明尚未校验或渲染，不会自行安装依赖。
-
-## 设计边界
-
-三条语义车道稳定，但它们只服务 AI 的判断，不映射为文件分类。当前阶段用一份连续文档承载深度人机讨论，下一阶段保留方向，远期阶段保持骨架；需求和计划表达当前最佳认知，而不是不可修改的合同。
-
-## 外部发布边界
-
-Skill 先在本地创建和修改 Bundle。写入任何外部文档系统都属于独立发布流程，必须由使用者先审阅本地结果，再明确确认“内容已经完成并可以发布”。允许创建、修改或完成本地 Bundle，不等于授权外部发布；本地内容再次修改后，需要重新确认发布。
-
-## 多角度研究
-
-对影响下一阶段的开放问题，Skill 会同时寻找权威资料、源码与 Issue、工程实践帖子、替代方案和失败反例，并记录版本、环境相似度、可信度和对当前决策的影响。网上帖子用于拓宽视角，不会被直接当成当前系统事实。
-
-本项目采用 MIT License。

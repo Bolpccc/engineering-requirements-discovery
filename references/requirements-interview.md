@@ -1,6 +1,6 @@
 # Requirements Interview
 
-Use this reference for a fresh discovery session, a resumed session, or a return prompted by new engineering evidence. The interview is an active engineering diagnosis, not a neutral questionnaire. Its job is to uncover the real need, challenge a weak framing, and make the next useful verification clear.
+Use this reference for a fresh design discussion, a resumed discussion, or a return prompted by new engineering evidence. The interview is an active engineering diagnosis, not a neutral questionnaire. Its job is to uncover the real need, challenge a weak framing, and make the next useful verification clear while keeping the user-facing conversation at the level of system behavior and observable outcomes.
 
 ## 1. Intake the Input as Given
 
@@ -18,6 +18,8 @@ Extract what is already present:
 - any named local workspace for persistent documents.
 
 Do not praise the input generically. Say what is already strong, what is weak enough to change the direction, and what you currently believe.
+
+The user does not need to supply implementation vocabulary. Translate their behavior, responsibility, risk, and acceptance statements into technical implications internally; do not ask them to invent parameters, class boundaries, data structures, or test mechanics that can be derived from the system.
 
 ## 2. Inspect Before Asking
 
@@ -44,6 +46,20 @@ Before the first question, briefly cover:
 Keep the whole opener to three to five short sentences. Do not render `Current reading`, `Silent forks`, or `Destination` as visible headings, and do not repeat the opener on later turns unless the interpretation materially changes. State it as a falsifiable interpretation, not a ceremonial summary. If the user named a solution before establishing the problem, say so directly. Do not assume the requested mechanism is the requirement.
 
 For a small request whose problem, boundary, and acceptance evidence are already clear, skip unnecessary interviewing and proceed to the handoff or document update.
+
+## Human-Language Discussion Contract
+
+Discuss the decision in this order when relevant:
+
+1. what the system or person experiences now;
+2. what should be observably different;
+3. what must remain true;
+4. which shortcut or failure is unacceptable;
+5. what observation accepts or rejects the result.
+
+Lead with that language. Add a technical term only when it protects an important safety, interface, architecture, or causal boundary, or gives the user a useful anchor for deeper reading. Do not hide consequential technical implications; translate them into their behavioral effect and keep the implementation-grade form for a Bundle if the user later chooses that route.
+
+When the user challenges a plan with a behavior-level objection, do not demand a replacement technical design. Resolve discoverable facts, state which original premise is now doubtful, and explain how the required behavior changes. A challenge may downgrade a previously claimed design or completion state.
 
 ## 4. Maintain the Internal Model
 
@@ -191,7 +207,7 @@ When new evidence arrives, identify what it changes, retain conclusions still su
 
 ## 13. Pressure-Test Before Documenting
 
-Before producing persistent requirements or a plan, challenge the current model once:
+Before producing a direct implementation brief or offering an Engineering Bundle, challenge the current model once:
 
 - Are we solving a surface symptom or the real problem?
 - Has the proposed scope grown beyond the outcome that justifies it?
@@ -201,3 +217,5 @@ Before producing persistent requirements or a plan, challenge the current model 
 If this review exposes a consequential gap, ask the single highest-impact question and re-evaluate. Otherwise proceed without announcing an internal review ceremony.
 
 Before stopping, internally confirm four items: the next engineering verification, evidence that accepts it, an observed result that would reject the current direction, and the scope or authority boundary for carrying it out. Stop when these items and the concrete problem, desired change, and consequential tradeoffs are clear enough to begin safely. There is no question limit, but there is also no reward for continuing after the direction is ready. The eventual architecture and distant stages may remain uncertain.
+
+When the direction is ready, ask for one route choice: **direct implementation** or **Engineering Bundle**. Recommend direct implementation only for one bounded outcome without an unresolved architecture or safety decision; recommend a Bundle when the design is multi-stage, consequential, evidence-driven, or likely to be revised. Do not create a persistence artifact before this choice.

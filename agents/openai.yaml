@@ -1,4 +1,4 @@
 interface:
-  display_name: "Engineering Requirements Discovery"
-  short_description: "Clarify requirements and explain engineering plans"
-  default_prompt: "Use $engineering-requirements-discovery to clarify the real engineering need, maintain the technical bundle, and explain what the plan will change in system behavior."
+  display_name: "Engineering Design"
+  short_description: "Turn human needs into confirmed engineering designs"
+  default_prompt: "Use $engineering-design to clarify the system behavior I need and help me choose a direct implementation brief or a confirmed Engineering Bundle."

@@ -1,6 +1,6 @@
 # Engineering Plan Interpretation
 
-Use this reference when a technical owner needs to understand an existing engineering plan, or after the discovery workflow creates or materially updates one. The output is a Human Decision View in the conversation. It does not replace, simplify, or mutate the technical source.
+Use this reference when a technical owner needs to understand or challenge an existing Engineering Bundle, and immediately after the design workflow creates or materially updates one. The output is a Human-readable Mapping in the conversation. It does not replace, simplify, or mutate the technical source by itself.
 
 ## Read the Plan as a Decision Map
 
@@ -102,6 +102,19 @@ Finish by collecting:
 
 Make the view easy to scan, but do not reduce it to slogans. Remove repetition before removing safety, status, causal, or rejection information.
 
+## Correction and Confirmation Loop
+
+When the user corrects an effect, boundary, premise, or acceptance interpretation:
+
+1. identify the affected technical semantic block;
+2. inspect any discoverable fact that determines whether the objection is valid;
+3. revise the technical block before changing the mapping;
+4. downgrade any design or completion claim no longer supported;
+5. retranslate the affected block in the conversation;
+6. after all corrections settle, present the complete mapping again.
+
+Do not treat agreement with one translated block as approval of the whole Bundle. The Bundle is ready for `$engineering-build` only after explicit confirmation that the complete mapped behavior, boundaries, and acceptance reflect the user's intent.
+
 ## Misalignment and Non-goals
 
 Interpretation may judge whether the plan addresses the observed problem and whether its claimed state has adequate support. It must not become a redesign, architecture review, code review, mathematical proof, product interview, priority-setting exercise, or approval decision.
@@ -110,4 +123,4 @@ If a block solves a different mechanism from the one the user experiences, say p
 
 ## Persistence Boundary
 
-The technical bundle remains pure implementation-grade material. Do not write the Human Decision View into `MAP.md`, a stage document, a new bundle file, or a template. If the user explicitly wants a persistent interpretation, ask for or use a destination outside the technical bundle and preserve a link back to the source plan.
+The technical Bundle remains pure implementation-grade material. Do not write the Human-readable Mapping into `MAP.md`, a stage document, a new Bundle file, or a template. If the user explicitly wants a persistent interpretation, ask for or use a destination outside the Bundle and preserve a link back to the source plan.

@@ -1,13 +1,14 @@
 # Lightweight Engineering Bundle
 
-Use this model when the user designates a local persistent workspace. The bundle is a human-readable engineering conversation surface: one global map and one continuous document per outcome-based stage. Requirements, plans, and decision notes remain semantic responsibilities inside that writing, not a page taxonomy.
+Use this model only after the user selects the Engineering Bundle route or supplies an existing Bundle. The Bundle is the technical, implementation-grade interface between `$engineering-design` and `$engineering-build`: one global map and one continuous document per outcome-based stage. Requirements, plans, and decision notes remain semantic responsibilities inside that writing, not a page taxonomy.
 
 ## Persistence Boundary
 
-- Without a designated local workspace, keep a session-only draft and state that nothing was persisted.
-- In a designated local workspace, locate an existing equivalent before creating anything. Preserve useful content, links, evidence, and the existing local structure.
-- Use a single page for a small effort with one near-term iteration, one audience, and a small evidence base.
-- Default to a bundle when the work spans multiple engineering outcomes or the current stage needs sustained requirements, architecture, implementation, and verification discussion.
+- Do not create a document during ordinary discussion or for the direct implementation route.
+- A new Bundle requires both the user's Bundle choice and a designated local workspace. Without a location, keep the aligned design in the conversation and ask for the destination before persisting it.
+- In a designated workspace, locate an existing equivalent before creating anything. Preserve useful content, links, evidence, and the existing local structure.
+- Use a Bundle when work spans dependent outcomes, carries consequential architecture, safety, interface, or verification decisions, is likely to change across evidence cycles, or needs a durable technical handoff.
+- Keep the Human-readable Mapping in the conversation. It is not a second document layer or a simplified copy of the Bundle.
 - Do not duplicate a source of truth merely to make the bundle look self-contained.
 
 ## Local Markdown Shape
@@ -114,6 +115,10 @@ The current stage is ready to hand to a separate BUILD workflow only when one do
 - open questions that still block or could materially change implementation.
 
 If a consequential item is missing, continue discovery or frame the precise research, prototype, decision, or outside task that will close it. This skill does not perform the build.
+
+Readiness is necessary but not sufficient. After the technical Bundle is ready, present the complete Human-readable Mapping and incorporate user corrections into the affected technical blocks. The Bundle becomes a valid handoff to `$engineering-build` only after the user explicitly confirms that the mapped behavior, boundaries, and acceptance match their intent.
+
+Record the handoff by returning the Bundle path and, when available, the current Git revision or another stable content identity in the conversation. Do not add owners, status workflow, approval records, or a parallel task system to the Bundle itself.
 
 ## External Publication Boundary
 
