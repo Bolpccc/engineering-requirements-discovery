@@ -27,6 +27,7 @@ The skill:
 - advances one high-impact uncertainty at a time;
 - changes method when direct questions stall, using a small strawman or a precisely framed research, prototype, decision, or task gap;
 - compares two or three approaches only when a real engineering fork exists;
+- scales verification to causal uncertainty and consequence, using direct reasoning and targeted regression when the mechanism is clear instead of rebuilding full A/B baselines for minor real-world drift;
 - pressure-tests the problem, scope, dependencies, and acceptance evidence before documenting;
 - defines the smallest safe next engineering iteration;
 - maintains Requirements, Engineering Plan, and Engineering Notes as internal semantic lanes without turning them into separate files;
@@ -157,6 +158,7 @@ MIT License. See [LICENSE](LICENSE).
 - 默认每轮只推进一个最关键的不确定性；
 - 直接追问不再收敛时，改用最小 strawman，或形成可恢复的研究、原型、决策和任务缺口；
 - 只有存在真实工程分叉时才比较两到三种方案；
+- 按因果不确定性和后果选择验证力度；机制已经明确时采用原理判断与聚焦回归，不因真实环境的细微漂移机械重建完整 A/B 基线；
 - 落文档前反向检查伪问题、范围膨胀、隐藏依赖和不可证伪目标；
 - 以“下一轮工程验证是否已经足够清晰”为完成条件；
 - 将 Requirements、Engineering Plan、Engineering Notes 作为内部语义车道，不拆成分类文件；

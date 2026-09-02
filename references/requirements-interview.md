@@ -138,7 +138,30 @@ When two or more mechanisms or boundaries remain genuinely viable:
 
 Do not manufacture three versions of the same idea. A factual investigation, a settled small change, or an evidence-gathering stage does not need an artificial approach comparison.
 
-## 10. Detect Stalls and Change Method
+## 10. Right-Size the Next Verification
+
+Before proposing an experiment, baseline rebuild, or A/B comparison, identify the exact uncertainty it would resolve and the decision that would change. Prefer the cheapest faithful way to disprove the current hypothesis:
+
+| Current state | Next verification |
+| --- | --- |
+| The interface contract, mechanism, and source agree on the defect | Recommend the direct correction for the build handoff; require a targeted check, one known-good regression, and one relevant failure case. |
+| The cause is likely but an operational stage is unobserved | Add the minimum instrumentation needed to locate that stage, then run one representative validation. |
+| Several causal explanations remain or attribution changes the design | Freeze only the influential inputs and compare the viable explanations. |
+| Safety thresholds, physical envelopes, obstacle retention, irreversible effects, or noisy algorithmic tradeoffs are being changed | Use a controlled A/B or equivalent strict comparison with explicit hazards, counterexamples, and rollback evidence. |
+
+Do not default to a complete baseline rebuild, broad parameter matrix, repeated field replay, or Benchmark because those artifacts appear rigorous. In physical systems, small changes in scene, timing, localization, and sensor observations are normal; require a new baseline only when that drift can alter the current decision. Preserve settled mechanism-level conclusions and refresh only the relevant state.
+
+An A/B proposal must state:
+
+- the unresolved causal fork;
+- the minimum variables that must remain controlled;
+- the observation that selects between the alternatives;
+- why reasoning, existing evidence, a targeted test, or a representative path is insufficient;
+- the stopping condition after which further comparison has no decision value.
+
+If those items cannot be stated, do not prescribe A/B yet. Define the smaller observation or direct handoff that is actually needed. This economy does not relax safety: increase verification where a false conclusion has serious consequences, but test the concrete hazard rather than recreating the entire world.
+
+## 11. Detect Stalls and Change Method
 
 Track whether each answer adds concrete evidence to the active gap. After two consecutive answers fail to do so, do not ask a third direct question. The third attempt must change method:
 
@@ -158,7 +181,7 @@ For every open question, preserve:
 
 A written open question is a reason to pause, not a substitute for readiness.
 
-## 11. Pause, Resume, and Re-enter
+## 12. Pause, Resume, and Re-enter
 
 Pause when the user asks to stop, the remaining uncertainty depends on outside work, or the core need and next useful verification are already clear.
 
@@ -166,7 +189,7 @@ On resume, read the current session state or living documents. Keep settled evid
 
 When new evidence arrives, identify what it changes, retain conclusions still supported, replace obsolete conclusions, and update the next iteration and its acceptance evidence.
 
-## 12. Pressure-Test Before Documenting
+## 13. Pressure-Test Before Documenting
 
 Before producing persistent requirements or a plan, challenge the current model once:
 

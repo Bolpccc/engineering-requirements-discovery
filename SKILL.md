@@ -39,6 +39,18 @@ Turn current evidence and a messy engineering goal into the smallest safe next i
 14. Use one overview diagram in the map for a multi-stage route by default. Embed diagrams in the relevant local Markdown when practical. Add a stage-local diagram only when it materially reduces explanation; do not create a diagram quota. Whenever a diagram is selected, follow Diagram Composition below.
 15. When new implementation, simulation, test, field, or research evidence arrives, re-enter the loop. Update only the affected stage by default. Change the map only when the current stage, stage order, dependency, shared boundary, or key decision changes; record the reasoning without creating a change-request system.
 
+## Proportionate Verification
+
+Choose the least expensive evidence that can falsify the current engineering hypothesis and protect the next change. Rigor means matching verification effort to causal uncertainty and consequence, not rebuilding a complete A/B baseline for every small change.
+
+- When an interface contract, mechanism, and current source already establish a defect, recommend the direct correction in the build handoff. Ask for a targeted check, a representative known-good regression, and one relevant failure case; do not require a broad comparison merely to restate the known mechanism.
+- When the cause is mostly clear but field conditions may affect it, specify the smallest observation that locates the environmental contribution, then one representative validation after correction.
+- Escalate to frozen-input A/B, parameter matrices, or a full benchmark only when competing causal explanations remain, attribution matters, results are materially input-sensitive, or a safety-critical tradeoff such as thresholds, envelopes, obstacle retention, or destructive behavior must be measured.
+- Treat ordinary variation in physical systems as expected. Reuse conclusions and baselines whose governing mechanism and invariants still hold; refresh only the state that can change the current decision. Do not make insignificant scene, timestamp, pose, or sensor drift trigger wholesale baseline reconstruction.
+- Stop gathering evidence once it is sufficient to choose the next iteration, detect a meaningful regression, and state what result would overturn the decision. Additional comparison without decision impact is process overhead, not rigor.
+
+This principle does not weaken safety boundaries. Use stronger controls where the cost of a false conclusion is high, but keep the evidence focused on the actual hazard or unresolved causal fork.
+
 ## Lightweight Engineering Bundle
 
 For a local Markdown workspace, use the portable flat bundle defined in [document-model.md](references/document-model.md):
