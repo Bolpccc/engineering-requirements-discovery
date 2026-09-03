@@ -74,7 +74,7 @@ assets/engineering-bundle/MAP.template.md
 assets/engineering-bundle/STAGE.template.md
 ```
 
-Diagram composition uses [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams) when a diagram materially improves the Bundle. External publication remains a separate, explicitly authorized workflow.
+Diagrams are opt-in. The skill does not create or propose one unless the user explicitly requests it; requested diagrams use [`mermaid-skill`](https://github.com/Agents365-ai/creating-mermaid-diagrams). External publication remains a separate, explicitly authorized workflow.
 
 ## 中文说明
 

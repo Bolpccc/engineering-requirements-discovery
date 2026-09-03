@@ -56,11 +56,11 @@ Use [MAP.template.md](../assets/engineering-bundle/MAP.template.md) as a respons
 - the current stage, why it is current, and what it unlocks;
 - numbered stage outcomes, entry conditions, completion evidence, dependencies, and links;
 - shared constraints and confirmed decisions that affect more than one stage;
-- one route diagram when the multi-stage relationship warrants it.
+- a route diagram only when the user explicitly requested one.
 
 The map is not a dashboard or executive summary. Do not add owners, deadlines, issue state, evidence taxonomies, change logs, or repeated stage summaries. Keep one current stage unless the work is explicitly paused or all stages are complete.
 
-The route diagram and the linked stage list express the same model. Update both when the current stage, stage order, dependency, or boundary changes. Do not redraw the diagram for prose-only edits.
+The linked stage list is the required route model; a diagram is optional and opt-in. When the user explicitly requests a route diagram, keep it consistent with the linked stage list. During later edits, do not silently redraw an existing diagram. If the changed route would make it materially false, surface the mismatch and ask whether to update or remove it.
 
 ## Stage Document
 

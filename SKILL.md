@@ -74,10 +74,11 @@ Use this when the work spans dependent outcomes, has consequential architecture,
 
 ## Diagram Composition
 
-- Use one route diagram in `MAP.md` when it materially clarifies a multi-stage Bundle. Add a stage-local diagram only when it reduces real explanation.
-- Whenever a diagram is warranted, invoke `$mermaid-skill`. This skill owns meaning and placement; `$mermaid-skill` owns diagram form, source, syntax validation, rendered preview, and readability review.
-- Without a designated local workspace, keep any draft diagram session-local and do not send private source to an external renderer.
-- If `$mermaid-skill` is unavailable, preserve the intended diagram and draft source without claiming validation or installing it automatically.
+- Do not create, propose, draft, or invoke tooling for a diagram unless the user explicitly requests one. A multi-stage Bundle does not imply a route diagram by default.
+- When the user explicitly requests a diagram, invoke `$mermaid-skill`. This skill owns meaning and placement; `$mermaid-skill` owns diagram form, source, syntax validation, rendered preview, and readability review.
+- Preserve an existing diagram during ordinary document updates. If a requested design change would make it materially false, surface the inconsistency and ask whether to update or remove it; do not silently redraw it.
+- Without a designated local workspace, keep a requested draft diagram session-local and do not send private source to an external renderer.
+- If `$mermaid-skill` is unavailable, preserve the requested diagram intent and draft source without claiming validation or installing it automatically.
 
 ## Evidence Re-entry
 
