@@ -1,5 +1,11 @@
 # Engineering Design
 
+> **Repository archived:** this Skill has moved to
+> [`Bolpccc/engineering-skills/skills/engineering-design`](https://github.com/Bolpccc/engineering-skills/tree/main/skills/engineering-design).
+> This repository is read-only historical source and receives no further updates.
+> Clone `engineering-skills` and run `python3 scripts/install.py engineering-design`
+> to install the maintained version.
+
 An Agent Skill for turning a human-language engineering need into either a compact implementation brief or a confirmed technical Engineering Bundle.
 
 ```text
@@ -36,7 +42,7 @@ For multi-stage or consequential work, the skill maintains a local, technical Bu
 
 After creating or revising the Bundle, the skill presents a conversation-only Human-readable Mapping in the same semantic order. The user confirms system behavior and boundaries without losing the ability to return to the technical source.
 
-A confirmed Bundle is the only stable interface to [`engineering-build`](https://github.com/Bolpccc/engineering-build). The Build skill implements it, updates evidence-backed status, and returns design-invalidating discoveries here for a new decision.
+A confirmed Bundle is the only stable interface to [`engineering-build`](https://github.com/Bolpccc/engineering-skills/tree/main/skills/engineering-build). The Build skill implements it, updates evidence-backed status, and returns design-invalidating discoveries here for a new decision.
 
 ## Boundaries
 
@@ -45,8 +51,9 @@ This skill does not implement code, run experiments, operate hardware, deploy, m
 ## Install
 
 ```bash
-git clone https://github.com/Bolpccc/engineering-design.git \
-  ~/.codex/skills/engineering-design
+git clone https://github.com/Bolpccc/engineering-skills.git
+cd engineering-skills
+python3 scripts/install.py engineering-design
 ```
 
 ## Use
